@@ -4907,12 +4907,33 @@ function fixDesktopGallery() {
       }
     }
     
-    /* Force all swiper elements to show */
-    .sf-product-media__desktop .swiper-container,
-    .sf-product-media__desktop .swiper-wrapper,
-    .sf-product-media__desktop .swiper-slide,
+    /* Force swiper elements to show but preserve their display types */
+    .sf-product-media__desktop .swiper-container {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    
+    .sf-product-media__desktop .swiper-wrapper {
+      display: flex !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    
+    .sf-product-media__desktop .swiper-slide {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      flex-shrink: 0 !important;
+    }
+    
     .sf-product-media__desktop .sf-prod-media,
-    .sf-product-media__desktop responsive-image,
+    .sf-product-media__desktop responsive-image {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    
     .sf-product-media__desktop img {
       display: block !important;
       visibility: visible !important;
@@ -5069,7 +5090,6 @@ window.addEventListener('resize', () => {
 
 // Run when images load
 window.addEventListener('load', runAllFixes);
-    
 </script>
 
 </html>
