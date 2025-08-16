@@ -4839,276 +4839,280 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>
-
-    // Comprehensive image display diagnostic and fix
-function debugAndFixImage() {
-  console.log('=== IMAGE DEBUG START ===');
+    
+// Fix for desktop gallery not showing - targeting the actual structure
+function fixDesktopGallery() {
+  console.log('=== DESKTOP GALLERY FIX START ===');
   
-  // Find the container
-  const container = document.querySelector('[data-media-id="63914433184119"]');
-  console.log('Container found:', !!container);
+  // Find the desktop gallery container
+  const desktopContainer = document.querySelector('.sf-product-media__desktop');
+  const desktopGallery = document.querySelector('media-gallery[data-screen="desktop"]');
   
-  if (!container) {
-    console.log('Container not found - searching for alternatives...');
-    // Try to find by class
-    const altContainers = document.querySelectorAll('.sf-prod-media.media-image');
-    console.log('Alternative containers found:', altContainers.length);
-    altContainers.forEach((el, i) => {
-      console.log(`Container ${i}:`, el.outerHTML.substring(0, 200));
-    });
+  console.log('Desktop container found:', !!desktopContainer);
+  console.log('Desktop gallery found:', !!desktopGallery);
+  
+  if (!desktopContainer) {
+    console.log('Desktop container not found!');
     return;
   }
   
-  console.log('Container HTML:', container.outerHTML.substring(0, 500));
+  // Log current classes and styles
+  console.log('Desktop container classes:', desktopContainer.className);
+  console.log('Desktop container computed style:', {
+    display: window.getComputedStyle(desktopContainer).display,
+    visibility: window.getComputedStyle(desktopContainer).visibility,
+    opacity: window.getComputedStyle(desktopContainer).opacity
+  });
   
-  // Get all child elements
-  const responsiveImage = container.querySelector('responsive-image');
-  const img = container.querySelector('img');
-  
-  console.log('Responsive-image found:', !!responsiveImage);
-  console.log('IMG found:', !!img);
-  
-  if (img) {
-    console.log('IMG src:', img.src);
-    console.log('IMG complete:', img.complete);
-    console.log('IMG naturalWidth:', img.naturalWidth);
-    console.log('IMG naturalHeight:', img.naturalHeight);
-  }
-  
-  // Check computed styles
-  function logStyles(element, name) {
-    if (!element) return;
-    const style = window.getComputedStyle(element);
-    console.log(`${name} styles:`, {
-      display: style.display,
-      visibility: style.visibility,
-      opacity: style.opacity,
-      width: style.width,
-      height: style.height,
-      position: style.position,
-      transform: style.transform,
-      overflow: style.overflow,
-      'z-index': style.zIndex
+  if (desktopGallery) {
+    console.log('Desktop gallery classes:', desktopGallery.className);
+    console.log('Desktop gallery computed style:', {
+      display: window.getComputedStyle(desktopGallery).display,
+      visibility: window.getComputedStyle(desktopGallery).visibility,
+      opacity: window.getComputedStyle(desktopGallery).opacity
     });
   }
   
-  logStyles(container, 'Container');
-  logStyles(responsiveImage, 'Responsive-image');
-  logStyles(img, 'IMG');
-  
-  // Check parent elements for hiding
-  let parent = container.parentElement;
-  let level = 1;
-  while (parent && level <= 5) {
-    const style = window.getComputedStyle(parent);
-    console.log(`Parent ${level} (${parent.tagName}.${parent.className}):`, {
-      display: style.display,
-      visibility: style.visibility,
-      opacity: style.opacity,
-      overflow: style.overflow
-    });
-    parent = parent.parentElement;
-    level++;
-  }
-  
-  // Nuclear approach - completely rebuild the image
-  function nuclearFix() {
-    console.log('Applying nuclear fix...');
-    
-    // Remove all existing styles
-    if (container) container.removeAttribute('style');
-    if (responsiveImage) responsiveImage.removeAttribute('style');
-    if (img) img.removeAttribute('style');
-    
-    // Create new image structure
-    const newContainer = document.createElement('div');
-    newContainer.style.cssText = `
+  // Force display with aggressive CSS
+  const forceCSS = document.createElement('style');
+  forceCSS.id = 'desktop-gallery-force';
+  forceCSS.textContent = `
+    /* Force desktop gallery to show */
+    .sf-product-media__desktop,
+    .sf-product-media__desktop *,
+    media-gallery[data-screen="desktop"],
+    media-gallery[data-screen="desktop"] *,
+    .sf-prod-media__wrapper {
       display: block !important;
       visibility: visible !important;
       opacity: 1 !important;
-      width: 100% !important;
-      max-width: 596px !important;
-      height: auto !important;
-      position: relative !important;
-      background: red !important;
-      border: 2px solid blue !important;
-      margin: 10px 0 !important;
-      padding: 10px !important;
-    `;
+    }
     
-    const newImg = document.createElement('img');
-    newImg.src = 'https://try-clearvision.com/cdn/shop/files/productpictures_-_2025-02-08T211420.127_1.png?v=1748964278';
-    newImg.alt = 'Product Image';
-    newImg.style.cssText = `
+    /* Override Tailwind hidden class specifically */
+    .sf-product-media__desktop.hidden {
       display: block !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      width: 100% !important;
-      height: auto !important;
-      max-width: 100% !important;
-      border: none !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      position: relative !important;
-      z-index: 9999 !important;
-    `;
+    }
     
-    newContainer.innerHTML = '<p style="color: red; font-weight: bold;">TEST IMAGE CONTAINER</p>';
-    newContainer.appendChild(newImg);
+    media-gallery[data-screen="desktop"].hidden {
+      display: block !important;
+    }
     
-    // Insert before original container
-    container.parentNode.insertBefore(newContainer, container);
-    
-    console.log('Nuclear fix applied - red container with image should be visible');
-  }
-  
-  // Apply aggressive fixes
-  function aggressiveFix() {
-    console.log('Applying aggressive fixes...');
-    
-    // Add global CSS override
-    const globalStyle = document.createElement('style');
-    globalStyle.id = 'image-force-fix';
-    globalStyle.textContent = `
-      /* Force all product images to show */
-      .sf-prod-media,
-      .sf-prod-media *,
-      [data-media-id="63914433184119"],
-      [data-media-id="63914433184119"] *,
-      responsive-image,
-      responsive-image * {
+    /* Ensure it shows on desktop screens */
+    @media (min-width: 768px) {
+      .sf-product-media__desktop,
+      media-gallery[data-screen="desktop"] {
         display: block !important;
         visibility: visible !important;
         opacity: 1 !important;
-        position: relative !important;
-        transform: none !important;
-        left: auto !important;
-        top: auto !important;
-        right: auto !important;
-        bottom: auto !important;
-        width: auto !important;
-        height: auto !important;
-        max-width: 100% !important;
-        overflow: visible !important;
       }
-      
-      /* Specific desktop overrides */
-      @media (min-width: 768px) {
-        .sf-prod-media.media-image,
-        .sf-prod-media.media-image responsive-image,
-        .sf-prod-media.media-image img {
-          display: block !important;
-          visibility: visible !important;
-          opacity: 1 !important;
+    }
+    
+    /* Force all swiper elements to show */
+    .sf-product-media__desktop .swiper-container,
+    .sf-product-media__desktop .swiper-wrapper,
+    .sf-product-media__desktop .swiper-slide,
+    .sf-product-media__desktop .sf-prod-media,
+    .sf-product-media__desktop responsive-image,
+    .sf-product-media__desktop img {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    
+    /* Make sure images load */
+    .sf-product-media__desktop img {
+      width: auto !important;
+      height: auto !important;
+      max-width: 100% !important;
+    }
+    
+    /* Test styling to see if it's working */
+    .sf-product-media__desktop {
+      border: 3px solid red !important;
+      background: yellow !important;
+      padding: 10px !important;
+      margin: 10px 0 !important;
+    }
+  `;
+  
+  document.head.appendChild(forceCSS);
+  
+  // Force remove hidden class and add display styles directly
+  if (desktopContainer) {
+    desktopContainer.classList.remove('hidden');
+    desktopContainer.style.setProperty('display', 'block', 'important');
+    desktopContainer.style.setProperty('visibility', 'visible', 'important');
+    desktopContainer.style.setProperty('opacity', '1', 'important');
+  }
+  
+  if (desktopGallery) {
+    desktopGallery.classList.remove('hidden');
+    desktopGallery.style.setProperty('display', 'block', 'important');
+    desktopGallery.style.setProperty('visibility', 'visible', 'important');
+    desktopGallery.style.setProperty('opacity', '1', 'important');
+  }
+  
+  // Force all swiper containers to show
+  const swiperContainers = desktopContainer.querySelectorAll('.swiper-container');
+  swiperContainers.forEach(container => {
+    container.style.setProperty('display', 'block', 'important');
+    container.style.setProperty('visibility', 'visible', 'important');
+    container.style.setProperty('opacity', '1', 'important');
+  });
+  
+  // Force all images to load and show
+  const images = desktopContainer.querySelectorAll('img');
+  images.forEach(img => {
+    img.style.setProperty('display', 'block', 'important');
+    img.style.setProperty('visibility', 'visible', 'important');
+    img.style.setProperty('opacity', '1', 'important');
+    
+    // Fix src if empty
+    if (!img.src || img.src.includes('width=1946')) {
+      const srcset = img.getAttribute('srcset');
+      if (srcset) {
+        const firstSrc = srcset.split(',')[0].trim().split(' ')[0];
+        if (firstSrc.startsWith('//')) {
+          img.src = 'https:' + firstSrc;
+        } else {
+          img.src = firstSrc;
         }
+        console.log('Fixed image src:', img.src);
       }
-      
-      /* Force responsive images */
-      responsive-image img {
-        width: 100% !important;
-        height: auto !important;
-        display: block !important;
-      }
-    `;
-    
-    document.head.appendChild(globalStyle);
-    
-    // Force attributes
-    if (responsiveImage) {
-      responsiveImage.setAttribute('intersecting', 'true');
-      responsiveImage.style.setProperty('display', 'block', 'important');
     }
-    
-    if (img) {
-      img.style.setProperty('display', 'block', 'important');
-      img.style.setProperty('visibility', 'visible', 'important');
-      img.style.setProperty('opacity', '1', 'important');
-      
-      // Force image reload
-      const originalSrc = img.src;
-      img.src = '';
-      setTimeout(() => {
-        img.src = originalSrc;
-      }, 100);
-    }
-    
-    // Force container visibility
-    if (container) {
-      container.style.setProperty('display', 'block', 'important');
-      container.style.setProperty('visibility', 'visible', 'important');
-      container.style.setProperty('opacity', '1', 'important');
-    }
+  });
+  
+  // Check responsive-image elements
+  const responsiveImages = desktopContainer.querySelectorAll('responsive-image');
+  responsiveImages.forEach(respImg => {
+    respImg.setAttribute('intersecting', 'true');
+    respImg.style.setProperty('display', 'block', 'important');
+  });
+  
+  // Force wrapper visibility
+  const wrapper = desktopContainer.querySelector('.sf-pis__wrapper');
+  if (wrapper) {
+    wrapper.style.setProperty('opacity', '1', 'important');
+    wrapper.style.setProperty('display', 'block', 'important');
   }
   
-  // Test visibility after fixes
-  function testVisibility() {
-    setTimeout(() => {
-      console.log('=== VISIBILITY TEST ===');
-      if (img) {
-        const rect = img.getBoundingClientRect();
-        console.log('Image bounding rect:', rect);
-        console.log('Image visible:', rect.width > 0 && rect.height > 0);
-        console.log('Image offsetWidth:', img.offsetWidth);
-        console.log('Image offsetHeight:', img.offsetHeight);
-      }
-      
-      if (container) {
-        const rect = container.getBoundingClientRect();
-        console.log('Container bounding rect:', rect);
-        console.log('Container visible:', rect.width > 0 && rect.height > 0);
-      }
-    }, 1000);
-  }
-  
-  // Run all fixes
-  aggressiveFix();
-  testVisibility();
-  
-  // If still not working after 2 seconds, go nuclear
+  // Test visibility after changes
   setTimeout(() => {
-    if (img && (img.offsetWidth === 0 || img.offsetHeight === 0)) {
-      console.log('Aggressive fix failed, going nuclear...');
-      nuclearFix();
+    const rect = desktopContainer.getBoundingClientRect();
+    console.log('Desktop container after fix:', {
+      visible: rect.width > 0 && rect.height > 0,
+      dimensions: `${rect.width}x${rect.height}`,
+      position: `${rect.left}, ${rect.top}`
+    });
+    
+    if (rect.width === 0 || rect.height === 0) {
+      console.log('Still not visible - checking parent containers...');
+      
+      // Check all parent containers
+      let parent = desktopContainer.parentElement;
+      let level = 1;
+      while (parent && level <= 5) {
+        const parentStyle = window.getComputedStyle(parent);
+        console.log(`Parent ${level} (${parent.tagName}.${parent.className}):`, {
+          display: parentStyle.display,
+          visibility: parentStyle.visibility,
+          opacity: parentStyle.opacity,
+          overflow: parentStyle.overflow
+        });
+        
+        // Force parent visibility too
+        parent.style.setProperty('display', 'block', 'important');
+        parent.style.setProperty('visibility', 'visible', 'important');
+        parent.style.setProperty('opacity', '1', 'important');
+        
+        parent = parent.parentElement;
+        level++;
+      }
     }
-  }, 2000);
+  }, 1000);
   
-  console.log('=== IMAGE DEBUG END ===');
+  console.log('=== DESKTOP GALLERY FIX END ===');
 }
 
-// Multiple execution strategies
-function executeDebug() {
-  debugAndFixImage();
+// Alternative nuclear option - create completely new gallery
+function createEmergencyGallery() {
+  console.log('Creating emergency gallery...');
   
-  // Try again after DOM mutations
-  setTimeout(debugAndFixImage, 500);
-  setTimeout(debugAndFixImage, 1000);
-  setTimeout(debugAndFixImage, 2000);
+  const emergencyContainer = document.createElement('div');
+  emergencyContainer.className = 'emergency-desktop-gallery';
+  emergencyContainer.style.cssText = `
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    max-width: 600px !important;
+    margin: 20px auto !important;
+    padding: 20px !important;
+    border: 5px solid blue !important;
+    background: lightblue !important;
+    position: relative !important;
+    z-index: 9999 !important;
+  `;
+  
+  emergencyContainer.innerHTML = `
+    <h3 style="color: red; margin-bottom: 10px;">EMERGENCY DESKTOP GALLERY</h3>
+    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+      <img src="https://try-clearvision.com/cdn/shop/files/productpictures_-_2025-02-08T211420.127_1.png?v=1748964278&width=500" 
+           style="width: 200px; height: 200px; object-fit: cover; border: 2px solid red;" 
+           alt="Product 1">
+      <img src="https://try-clearvision.com/cdn/shop/files/ezgif.com-optimize_2.gif?v=1739110116&width=500" 
+           style="width: 200px; height: 200px; object-fit: cover; border: 2px solid red;" 
+           alt="Product 2">
+      <img src="https://try-clearvision.com/cdn/shop/files/325.png?v=1748955912&width=500" 
+           style="width: 200px; height: 200px; object-fit: cover; border: 2px solid red;" 
+           alt="Product 3">
+    </div>
+  `;
+  
+  // Insert at the top of the page
+  document.body.insertBefore(emergencyContainer, document.body.firstChild);
 }
 
-// Run immediately and on DOM ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', executeDebug);
-} else {
-  executeDebug();
+// Multiple execution strategy
+function runAllFixes() {
+  // Wait for DOM
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runAllFixes);
+    return;
+  }
+  
+  fixDesktopGallery();
+  
+  // If still not working after 3 seconds, go nuclear
+  setTimeout(() => {
+    const desktopContainer = document.querySelector('.sf-product-media__desktop');
+    if (desktopContainer) {
+      const rect = desktopContainer.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) {
+        console.log('Desktop gallery still not visible - creating emergency gallery');
+        createEmergencyGallery();
+      }
+    }
+  }, 3000);
+  
+  // Retry fixes periodically
+  setTimeout(fixDesktopGallery, 500);
+  setTimeout(fixDesktopGallery, 1500);
 }
 
-// Also run on window load
-window.addEventListener('load', executeDebug);
+// Run immediately
+runAllFixes();
 
-// Run on resize (in case it's a responsive issue)
-window.addEventListener('resize', debounce(executeDebug, 250));
+// Also run on window resize
+window.addEventListener('resize', () => {
+  if (window.innerWidth >= 768) {
+    setTimeout(fixDesktopGallery, 100);
+  }
+});
 
-function debounce(func, wait) {
-  let timeout;
-  return function executedFunction(...args) {
-    const later = () => {
-      clearTimeout(timeout);
-      func(...args);
-    };
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-  };
-}
+// Run when images load
+window.addEventListener('load', runAllFixes);
+    
 </script>
 
 </html>
