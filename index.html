@@ -4839,8 +4839,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>
-    
-// Fix for desktop gallery not showing - targeting the actual structure
+
+    // Fix for desktop gallery not showing - targeting the actual structure
 function fixDesktopGallery() {
   console.log('=== DESKTOP GALLERY FIX START ===');
   
@@ -4924,14 +4924,6 @@ function fixDesktopGallery() {
       width: auto !important;
       height: auto !important;
       max-width: 100% !important;
-    }
-    
-    /* Test styling to see if it's working */
-    .sf-product-media__desktop {
-      border: 3px solid red !important;
-      background: yellow !important;
-      padding: 10px !important;
-      margin: 10px 0 !important;
     }
   `;
   
@@ -5034,44 +5026,7 @@ function fixDesktopGallery() {
   console.log('=== DESKTOP GALLERY FIX END ===');
 }
 
-// Alternative nuclear option - create completely new gallery
-function createEmergencyGallery() {
-  console.log('Creating emergency gallery...');
-  
-  const emergencyContainer = document.createElement('div');
-  emergencyContainer.className = 'emergency-desktop-gallery';
-  emergencyContainer.style.cssText = `
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    width: 100% !important;
-    max-width: 600px !important;
-    margin: 20px auto !important;
-    padding: 20px !important;
-    border: 5px solid blue !important;
-    background: lightblue !important;
-    position: relative !important;
-    z-index: 9999 !important;
-  `;
-  
-  emergencyContainer.innerHTML = `
-    <h3 style="color: red; margin-bottom: 10px;">EMERGENCY DESKTOP GALLERY</h3>
-    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-      <img src="https://try-clearvision.com/cdn/shop/files/productpictures_-_2025-02-08T211420.127_1.png?v=1748964278&width=500" 
-           style="width: 200px; height: 200px; object-fit: cover; border: 2px solid red;" 
-           alt="Product 1">
-      <img src="https://try-clearvision.com/cdn/shop/files/ezgif.com-optimize_2.gif?v=1739110116&width=500" 
-           style="width: 200px; height: 200px; object-fit: cover; border: 2px solid red;" 
-           alt="Product 2">
-      <img src="https://try-clearvision.com/cdn/shop/files/325.png?v=1748955912&width=500" 
-           style="width: 200px; height: 200px; object-fit: cover; border: 2px solid red;" 
-           alt="Product 3">
-    </div>
-  `;
-  
-  // Insert at the top of the page
-  document.body.insertBefore(emergencyContainer, document.body.firstChild);
-}
+// Don't create emergency gallery - preserve original slider functionality
 
 // Multiple execution strategy
 function runAllFixes() {
@@ -5083,14 +5038,16 @@ function runAllFixes() {
   
   fixDesktopGallery();
   
-  // If still not working after 3 seconds, go nuclear
+  // If still not working after 3 seconds, just log the issue
   setTimeout(() => {
     const desktopContainer = document.querySelector('.sf-product-media__desktop');
     if (desktopContainer) {
       const rect = desktopContainer.getBoundingClientRect();
       if (rect.width === 0 || rect.height === 0) {
-        console.log('Desktop gallery still not visible - creating emergency gallery');
-        createEmergencyGallery();
+        console.log('Desktop gallery still not visible after all fixes');
+        console.log('Consider checking for conflicting CSS or JavaScript that might be interfering');
+      } else {
+        console.log('Desktop gallery is now visible!');
       }
     }
   }, 3000);
