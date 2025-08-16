@@ -1,4 +1,5 @@
 
+
 <!doctype html>
 <html
   class="no-js supports-no-cookies"
@@ -232,6 +233,15 @@ Shopify.routes.root = "/";</script>
 <script>window.ShopifyPay = window.ShopifyPay || {};
 window.ShopifyPay.apiHost = "shop.app\/pay";</script>
 <script id="shop-js-analytics" type="application/json">{"pageType":"product"}</script>
+<script defer="defer" async type="module" src="//try-clearvision.com/cdn/shopifycloud/shop-js/modules/v2/client.init-shop-cart-sync_DMhwnj0d.en.esm.js"></script>
+<script defer="defer" async type="module" src="//try-clearvision.com/cdn/shopifycloud/shop-js/modules/v2/chunk.common_zpuuaMLp.esm.js"></script>
+<script type="module">
+  await import("//try-clearvision.com/cdn/shopifycloud/shop-js/modules/v2/client.init-shop-cart-sync_DMhwnj0d.en.esm.js");
+await import("//try-clearvision.com/cdn/shopifycloud/shop-js/modules/v2/chunk.common_zpuuaMLp.esm.js");
+
+  window.Shopify.SignInWithShop?.initShopCartSync?.({"fedCMEnabled":true,"windoidEnabled":true});
+
+</script>
 <script>
   window.Shopify = window.Shopify || {};
   if (!window.Shopify.featureAssets) window.Shopify.featureAssets = {};
@@ -258,7 +268,7 @@ window.ShopifyPay.apiHost = "shop.app\/pay";</script>
     window.addEventListener('load', asyncLoad, false);
   }
 })();</script>
-<script id="__st">var __st={"a":90734559607,"offset":7200,"reqid":"d2442dee-9eb9-4a3a-9a03-c26cb77a5854-1755340433","pageurl":"try-clearvision.com\/products\/clearvision","u":"b3a9f4edd148","p":"product","rtyp":"product","rid":14910119412087};</script>
+<script id="__st">var __st={"a":90734559607,"offset":7200,"reqid":"92bd8f2e-04e4-4c58-9d03-bda641976104-1755340635","pageurl":"try-clearvision.com\/products\/clearvision","u":"af4af19a52c3","p":"product","rtyp":"product","rid":14910119412087};</script>
 <script>window.ShopifyPaypalV4VisibilityTracking = true;</script>
 <script id="captcha-bootstrap">!function(){'use strict';const t='contact',e='account',n='new_comment',o=[[t,t],['blogs',n],['comments',n],[t,'customer']],c=[[e,'customer_login'],[e,'guest_login'],[e,'recover_customer_password'],[e,'create_customer']],r=t=>t.map((([t,e])=>`form[action*='/${t}']:not([data-nocaptcha='true']) input[name='form_type'][value='${e}']`)).join(','),a=t=>()=>t?[...document.querySelectorAll(t)].map((t=>t.form)):[];function s(){const t=[...o],e=r(t);return a(e)}const i='password',u='form_key',d=['recaptcha-v3-token','g-recaptcha-response','h-captcha-response',i],f=()=>{try{return window.sessionStorage}catch{return}},m='__shopify_v',_=t=>t.elements[u];function p(t,e,n=!1){try{const o=window.sessionStorage,c=JSON.parse(o.getItem(e)),{data:r}=function(t){const{data:e,action:n}=t;return t[m]||n?{data:e,action:n}:{data:t,action:n}}(c);for(const[e,n]of Object.entries(r))t.elements[e]&&(t.elements[e].value=n);n&&o.removeItem(e)}catch(o){console.error('form repopulation failed',{error:o})}}const l='form_type',E='cptcha';function T(t){t.dataset[E]=!0}const w=window,h=w.document,L='Shopify',v='ce_forms',y='captcha';let A=!1;((t,e)=>{const n=(g='f06e6c50-85a8-45c8-87d0-21a2b65856fe',I='https://cdn.shopify.com/shopifycloud/storefront-forms-hcaptcha/ce_storefront_forms_captcha_hcaptcha.v1.5.2.iife.js',D={infoText:'Protected by hCaptcha',privacyText:'Privacy',termsText:'Terms'},(t,e,n)=>{const o=w[L][v],c=o.bindForm;if(c)return c(t,g,e,D).then(n);var r;o.q.push([[t,g,e,D],n]),r=I,A||(h.body.append(Object.assign(h.createElement('script'),{id:'captcha-provider',async:!0,src:r})),A=!0)});var g,I,D;w[L]=w[L]||{},w[L][v]=w[L][v]||{},w[L][v].q=[],w[L][y]=w[L][y]||{},w[L][y].protect=function(t,e){n(t,void 0,e),T(t)},Object.freeze(w[L][y]),function(t,e,n,w,h,L){const[v,y,A,g]=function(t,e,n){const i=e?o:[],u=t?c:[],d=[...i,...u],f=r(d),m=r(i),_=r(d.filter((([t,e])=>n.includes(e))));return[a(f),a(m),a(_),s()]}(w,h,L),I=t=>{const e=t.target;return e instanceof HTMLFormElement?e:e&&e.form},D=t=>v().includes(t);t.addEventListener('submit',(t=>{const e=I(t);if(!e)return;const n=D(e)&&!e.dataset.hcaptchaBound&&!e.dataset.recaptchaBound,o=_(e),c=g().includes(e)&&(!o||!o.value);(n||c)&&t.preventDefault(),c&&!n&&(function(t){try{if(!f())return;!function(t){const e=f();if(!e)return;const n=_(t);if(!n)return;const o=n.value;o&&e.removeItem(o)}(t);const e=Array.from(Array(32),(()=>Math.random().toString(36)[2])).join('');!function(t,e){_(t)||t.append(Object.assign(document.createElement('input'),{type:'hidden',name:u})),t.elements[u].value=e}(t,e),function(t,e){const n=f();if(!n)return;const o=[...t.querySelectorAll(`input[type='${i}']`)].map((({name:t})=>t)),c=[...d,...o],r={};for(const[a,s]of new FormData(t).entries())c.includes(a)||(r[a]=s);n.setItem(e,JSON.stringify({[m]:1,action:t.action,data:r}))}(t,e)}catch(e){console.error('failed to persist form',e)}}(e),e.submit())}));const S=(t,e)=>{t&&!t.dataset[E]&&(n(t,e.some((e=>e===t))),T(t))};for(const o of['focusin','change'])t.addEventListener(o,(t=>{const e=I(t);D(e)&&S(e,y())}));const B=e.get('form_key'),M=e.get(l),P=B&&M;t.addEventListener('DOMContentLoaded',(()=>{const t=y();if(P)for(const e of t)e.elements[l].value===M&&p(e,B);[...new Set([...A(),...v().filter((t=>'true'===t.dataset.shopifyCaptcha))])].forEach((e=>S(e,t)))}))}(h,new URLSearchParams(w.location.search),n,t,e,['guest_login'])})(!0,!0)}();</script>
 <script integrity="sha256-52AcMU7V7pcBOXWImdc/TAGTFKeNjmkeM1Pvks/DTgc=" data-source-attribution="shopify.loadfeatures" defer="defer" src="//try-clearvision.com/cdn/shopifycloud/storefront/assets/storefront/load_feature-81c60534.js" crossorigin="anonymous"></script>
@@ -308,17 +318,7 @@ window.ShopifyPay.apiHost = "shop.app\/pay";</script>
     .m-cart-drawer--footer{
       display: block !important;
     }
-  </style><!-- BEGIN app block: shopify://apps/triplewhale/blocks/triple_pixel_snippet/483d496b-3f1a-4609-aea7-8eee3b6b7a2a --><link rel='preconnect dns-prefetch' href='https://api.config-security.com/' crossorigin />
-<link rel='preconnect dns-prefetch' href='https://conf.config-security.com/' crossorigin />
-<script>
-/* >> TriplePixel :: start*/
-window.TriplePixelData={TripleName:"uwrwc2-mi.myshopify.com",ver:"2.16",plat:"SHOPIFY",isHeadless:false,src:'SHOPIFY_EXT',product:{id:"14910119412087",name:`ClearVision™ – Ultimate Clarity in Any Weather`,price:"49.90",variant:"54948715233655"},search:"",collection:"",cart:"",template:"product",curr:"USD" || "USD"},function(W,H,A,L,E,_,B,N){function O(U,T,P,H,R){void 0===R&&(R=!1),H=new XMLHttpRequest,P?(H.open("POST",U,!0),H.setRequestHeader("Content-Type","text/plain")):H.open("GET",U,!0),H.send(JSON.stringify(P||{})),H.onreadystatechange=function(){4===H.readyState&&200===H.status?(R=H.responseText,U.includes("/first")?eval(R):P||(N[B]=R)):(299<H.status||H.status<200)&&T&&!R&&(R=!0,O(U,T-1,P))}}if(N=window,!N[H+"sn"]){N[H+"sn"]=1,L=function(){return Date.now().toString(36)+"_"+Math.random().toString(36)};try{A.setItem(H,1+(0|A.getItem(H)||0)),(E=JSON.parse(A.getItem(H+"U")||"[]")).push({u:location.href,r:document.referrer,t:Date.now(),id:L()}),A.setItem(H+"U",JSON.stringify(E))}catch(e){}var i,m,p;A.getItem('"!nC`')||(_=A,A=N,A[H]||(E=A[H]=function(t,e,i){return void 0===i&&(i=[]),"State"==t?E.s:(W=L(),(E._q=E._q||[]).push([W,t,e].concat(i)),W)},E.s="Installed",E._q=[],E.ch=W,B="configSecurityConfModel",N[B]=1,O("https://conf.config-security.com/model",5),i=L(),m=A[atob("c2NyZWVu")],_.setItem("di_pmt_wt",i),p={id:i,action:"profile",avatar:_.getItem("auth-security_rand_salt_"),time:m[atob("d2lkdGg=")]+":"+m[atob("aGVpZ2h0")],host:A.TriplePixelData.TripleName,plat:A.TriplePixelData.plat,url:window.location.href.slice(0,500),ref:document.referrer,ver:A.TriplePixelData.ver},O("https://api.config-security.com/event",5,p),O("https://api.config-security.com/first?host=".concat(p.host,"&plat=").concat(p.plat),5)))}}("","TriplePixel",localStorage);
-/* << TriplePixel :: end*/
-</script>
-
-
-
-<!-- END app block --><!-- BEGIN app block: shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507 -->
+  </style><!-- BEGIN app block: shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507 -->
 
 
 
@@ -421,6 +421,16 @@ window.TriplePixelData={TripleName:"uwrwc2-mi.myshopify.com",ver:"2.16",plat:"SH
 
 
 
+
+
+
+<!-- END app block --><!-- BEGIN app block: shopify://apps/triplewhale/blocks/triple_pixel_snippet/483d496b-3f1a-4609-aea7-8eee3b6b7a2a --><link rel='preconnect dns-prefetch' href='https://api.config-security.com/' crossorigin />
+<link rel='preconnect dns-prefetch' href='https://conf.config-security.com/' crossorigin />
+<script>
+/* >> TriplePixel :: start*/
+window.TriplePixelData={TripleName:"uwrwc2-mi.myshopify.com",ver:"2.16",plat:"SHOPIFY",isHeadless:false,src:'SHOPIFY_EXT',product:{id:"14910119412087",name:`ClearVision™ – Ultimate Clarity in Any Weather`,price:"49.90",variant:"54948715233655"},search:"",collection:"",cart:"",template:"product",curr:"USD" || "USD"},function(W,H,A,L,E,_,B,N){function O(U,T,P,H,R){void 0===R&&(R=!1),H=new XMLHttpRequest,P?(H.open("POST",U,!0),H.setRequestHeader("Content-Type","text/plain")):H.open("GET",U,!0),H.send(JSON.stringify(P||{})),H.onreadystatechange=function(){4===H.readyState&&200===H.status?(R=H.responseText,U.includes("/first")?eval(R):P||(N[B]=R)):(299<H.status||H.status<200)&&T&&!R&&(R=!0,O(U,T-1,P))}}if(N=window,!N[H+"sn"]){N[H+"sn"]=1,L=function(){return Date.now().toString(36)+"_"+Math.random().toString(36)};try{A.setItem(H,1+(0|A.getItem(H)||0)),(E=JSON.parse(A.getItem(H+"U")||"[]")).push({u:location.href,r:document.referrer,t:Date.now(),id:L()}),A.setItem(H+"U",JSON.stringify(E))}catch(e){}var i,m,p;A.getItem('"!nC`')||(_=A,A=N,A[H]||(E=A[H]=function(t,e,i){return void 0===i&&(i=[]),"State"==t?E.s:(W=L(),(E._q=E._q||[]).push([W,t,e].concat(i)),W)},E.s="Installed",E._q=[],E.ch=W,B="configSecurityConfModel",N[B]=1,O("https://conf.config-security.com/model",5),i=L(),m=A[atob("c2NyZWVu")],_.setItem("di_pmt_wt",i),p={id:i,action:"profile",avatar:_.getItem("auth-security_rand_salt_"),time:m[atob("d2lkdGg=")]+":"+m[atob("aGVpZ2h0")],host:A.TriplePixelData.TripleName,plat:A.TriplePixelData.plat,url:window.location.href.slice(0,500),ref:document.referrer,ver:A.TriplePixelData.ver},O("https://api.config-security.com/event",5,p),O("https://api.config-security.com/first?host=".concat(p.host,"&plat=").concat(p.plat),5)))}}("","TriplePixel",localStorage);
+/* << TriplePixel :: end*/
+</script>
 
 
 
@@ -562,7 +572,7 @@ window.TriplePixelData={TripleName:"uwrwc2-mi.myshopify.com",ver:"2.16",plat:"SH
       first.parentNode.insertBefore(script, first);
     };
     trekkie.load(
-      {"Trekkie":{"appName":"storefront","development":false,"defaultAttributes":{"shopId":90734559607,"isMerchantRequest":null,"themeId":179470991735,"themeCityHash":"17049281522059923066","contentLanguage":"en","currency":"USD","eventMetadataId":"ad1daa67-15ae-4269-8ccb-5750ef154c95"},"isServerSideCookieWritingEnabled":true,"monorailRegion":"shop_domain"},"Session Attribution":{},"S2S":{"facebookCapiEnabled":false,"source":"trekkie-storefront-renderer","apiClientId":580111}}
+      {"Trekkie":{"appName":"storefront","development":false,"defaultAttributes":{"shopId":90734559607,"isMerchantRequest":null,"themeId":179470991735,"themeCityHash":"17049281522059923066","contentLanguage":"en","currency":"USD","eventMetadataId":"f252d59d-249d-4614-8d41-38a83e102193"},"isServerSideCookieWritingEnabled":true,"monorailRegion":"shop_domain"},"Session Attribution":{},"S2S":{"facebookCapiEnabled":false,"source":"trekkie-storefront-renderer","apiClientId":580111}}
     );
 
     var loaded = false;
@@ -600,7 +610,7 @@ window.TriplePixelData={TripleName:"uwrwc2-mi.myshopify.com",ver:"2.16",plat:"SH
   src="https://try-clearvision.com/cdn/shopifycloud/perf-kit/shopify-perf-kit-2.0.0.min.js"
   data-application="storefront-renderer"
   data-shop-id="90734559607"
-  data-render-region="gcp-us-east1"
+  data-render-region="gcp-europe-west4"
   data-page-type="product"
   data-theme-instance-id="179470991735"
   data-theme-name="Minimog - OS 2.0"
@@ -624,7 +634,7 @@ window.TriplePixelData={TripleName:"uwrwc2-mi.myshopify.com",ver:"2.16",plat:"SH
 
     
 
-<script>window.MinimogThemeStyles = {  product: "https://try-clearvision.com/cdn/shop/t/4/assets/product.css?v=71606531621826840521744673297"};window.MinimogTheme = {};window.MinimogTheme.version = '3.5.0';window.MinimogLibs = {};window.MinimogStrings = {  addToCart: "Add to cart →",  soldOut: "Sold Out",  unavailable: "Unavailable",  inStock: "In Stock",  checkout: "Secure checkout →",  viewCart: "View cart",  cartRemove: "Remove",  zipcodeValidate: "Zip code can\u0026#39;t be blank",  noShippingRate: "There are no shipping rates for your address.",  shippingRatesResult: "We found {{count}} shipping rate(s) for your address",  recommendTitle: "Recommendation for you",  shipping: "Shipping",  add: "Add",  itemAdded: "Product added to cart successfully",  requiredField: "Please fill all the required fields(*) before Add To Cart!",  hours: "hours",  mins: "mins",  outOfStock: "Out of stock",  sold: "Sold",  available: "Available",  preorder: "Pre-order",  sold_out_items_message: "The product is already sold out.",  unitPrice: "Unit price",  unitPriceSeparator: "per",  cartError: "Translation missing: en.cart.general.cart_error",  quantityError: "Not enough items available. Only [quantity] left.",};window.MinimogThemeScripts = {  productModel: "https://try-clearvision.com/cdn/shop/t/4/assets/product-model-new.min.js?v=116323143127740990381744673290",  productMedia: "https://try-clearvision.com/cdn/shop/t/4/assets/product-media.min.js?v=38639728025325342691744673288",  variantsPicker: "https://try-clearvision.com/cdn/shop/t/4/assets/variant-picker.min.js?v=49721991061667621411744673337"};window.MinimogSettings = {  design_mode: false,  requestPath: "\/products\/clearvision",  template: "product.clearvision",  templateName: "product",productHandle: "clearvision",    productId: 14910119412087,currency_code: "USD",  money_format: "${{amount}}",  base_url: window.location.origin + Shopify.routes.root,  money_with_currency_format: "${{amount}} USD","filter_color1.png": "\/\/try-clearvision.com\/cdn\/shop\/t\/4\/assets\/filter_color1.png?v=108724575494762050121744673224\n",          "filter_color1": "gingham",      "filter_color2.png": "\/\/try-clearvision.com\/cdn\/shop\/t\/4\/assets\/filter_color2.png?v=17561002917557436191744673225\n",          "filter_color2": "flannel",      "filter_color3.png": "\/\/try-clearvision.com\/cdn\/shop\/t\/4\/assets\/filter_color3.png?v=153591120298802974341744673226\n",          "filter_color3": "Schwarz",      "filter_color5.png": "\/\/try-clearvision.com\/cdn\/shop\/t\/4\/assets\/filter_color5.png?v=123029361495895643181744673228\n",          "filter_color5": "Schwarz\/Rot",      "filter_color6.png": "\/\/try-clearvision.com\/cdn\/shop\/t\/4\/assets\/filter_color6.png?v=28617796106065189071744673229\n",          "filter_color6": "Schwarz\/Grau",      "filter_color7.png": "\/\/try-clearvision.com\/cdn\/shop\/t\/4\/assets\/filter_color7.png?v=179572217175848771871744673230\n",          "filter_color7": "Schwarz\/Weiß",      "filter_color8.png": "\/\/try-clearvision.com\/cdn\/shop\/t\/4\/assets\/filter_color8.png?v=21049375339883828771744673231\n",          "filter_color8": "Schwarz\/Blau",theme: {    id: 179470991735,    name: "clearvisionus_v1",    role: "main",    version: "3.5.0",    online_store_version: "2.0",    preview_url: "https://try-clearvision.com?preview_theme_id=179470991735",  },  shop_domain: "https:\/\/try-clearvision.com",  shop_locale: {    published: [{"shop_locale":{"locale":"en","enabled":true,"primary":true,"published":true}}],    current: "en",    primary: "en",  },  routes: {    root: "\/",    cart: "\/cart",    product_recommendations_url: "\/recommendations\/products",    cart_add_url: '/cart/add',    cart_change_url: '/cart/change',    cart_update_url: '/cart/update',    predictive_search_url: '/search/suggest',    search_url: '/search'  },  hide_unavailable_product_options: true,  pcard_image_ratio: "1\/1",  cookie_consent_allow: "Allow Cookies",  cookie_consent_message: "This website uses cookies to ensure you get the best experience on our website.",  cookie_consent_placement: "bottom",  cookie_consent_learnmore_link: "https:\/\/www.cookiesandyou.com\/",  cookie_consent_learnmore: "Learn more",  cookie_consent_theme: "black",  cookie_consent_decline: "Decline",  show_cookie_consent: false,  product_colors: "red: #d91e46,\nyellow: #FDDA76,\nschwarz: #000000,\nblack band: #000000,\nBlau: #29c7f0,\nHellgrün: #8fff00,\npurple: #B19CD9,\nsilver: #EEEEEF,\nwhite: #FFFFFF,\nbrown: #836953,\nlight brown: #B5651D,\ndark turquoise: #23cddc,\nOrange: #FFB347,\ntan: #E9D1BF,\nviolet: #B490B0,\npink: #de3781,\nGrau: #808080,\nsky: #96BDC6,\npale leaf: #CCD4BF,\nlight blue: #14ace6,\ndark grey: #aca69f,\nbeige: #EBE6DB,\nbeige band: #EED9C4,\ndark blue: #063e66,\ncream: #FFFFCC,\nlight pink: #FBCFCD,\nmint: #bedce3,\ndark gray: #3A3B3C,\nrosy brown: #c4a287,\nlight grey:#D3D3D3,\ncopper: #B87333,\nrose gold: #ECC5C0,\nnight blue: #14ace6,\ncoral: #FF7F50,\nlight purple: #C6AEC7,\nDunkelblau: #15185d,\nGrün: #4b573e",  use_ajax_atc: false,  discount_code_enable: false,  enable_cart_drawer: false,  pcard_show_lowest_prices: false,  date_now: "2025\/08\/16 12:33:00+0200 (CEST)",  foxKitBaseUrl: "foxkit.app"};window.themeStyleURLs = {  productTemplate: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/product-template.css?v=40080466890370618461744673294",    required: false,    afterWindowLoaded: true  },  collection: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/collection.css?v=74407725121756342481744673192",    required: false  },  search: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/collection.css?v=74407725121756342481744673192",    required: false  },  customer: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/customer.css?v=56279534652110279791744673209",    required:  false ,  },  plyr: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/plyr.css?416",    required: false,    afterWindowLoaded: true  }};window.themeScriptURLs = {  productTemplate: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/product-template.min.js?v=7870098714940759141744673296",    required:  true ,    afterWindowLoaded: true  },  collection: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/collection.min.js?v=30728561818773925521744673194",    required:  false ,  },  customer: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/customer.min.js?v=67273382099248621291744673211",    required:  false ,  },  tabs: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/tabs.min.js?v=130425652732682395541744673323",    required: false,  },  plyr: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/plyr.min.js?416",    required: false,    afterWindowLoaded: true  },  parallax: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/simple-parallax.min.js?v=180593272672171387901744673312",    required: false,    afterWindowLoaded: true  }};</script>
+<script>window.MinimogThemeStyles = {  product: "https://try-clearvision.com/cdn/shop/t/4/assets/product.css?v=71606531621826840521744673297"};window.MinimogTheme = {};window.MinimogTheme.version = '3.5.0';window.MinimogLibs = {};window.MinimogStrings = {  addToCart: "Add to cart →",  soldOut: "Sold Out",  unavailable: "Unavailable",  inStock: "In Stock",  checkout: "Secure checkout →",  viewCart: "View cart",  cartRemove: "Remove",  zipcodeValidate: "Zip code can\u0026#39;t be blank",  noShippingRate: "There are no shipping rates for your address.",  shippingRatesResult: "We found {{count}} shipping rate(s) for your address",  recommendTitle: "Recommendation for you",  shipping: "Shipping",  add: "Add",  itemAdded: "Product added to cart successfully",  requiredField: "Please fill all the required fields(*) before Add To Cart!",  hours: "hours",  mins: "mins",  outOfStock: "Out of stock",  sold: "Sold",  available: "Available",  preorder: "Pre-order",  sold_out_items_message: "The product is already sold out.",  unitPrice: "Unit price",  unitPriceSeparator: "per",  cartError: "Translation missing: en.cart.general.cart_error",  quantityError: "Not enough items available. Only [quantity] left.",};window.MinimogThemeScripts = {  productModel: "https://try-clearvision.com/cdn/shop/t/4/assets/product-model-new.min.js?v=116323143127740990381744673290",  productMedia: "https://try-clearvision.com/cdn/shop/t/4/assets/product-media.min.js?v=38639728025325342691744673288",  variantsPicker: "https://try-clearvision.com/cdn/shop/t/4/assets/variant-picker.min.js?v=49721991061667621411744673337"};window.MinimogSettings = {  design_mode: false,  requestPath: "\/products\/clearvision",  template: "product.clearvision",  templateName: "product",productHandle: "clearvision",    productId: 14910119412087,currency_code: "USD",  money_format: "${{amount}}",  base_url: window.location.origin + Shopify.routes.root,  money_with_currency_format: "${{amount}} USD","filter_color1.png": "\/\/try-clearvision.com\/cdn\/shop\/t\/4\/assets\/filter_color1.png?v=108724575494762050121744673224\n",          "filter_color1": "gingham",      "filter_color2.png": "\/\/try-clearvision.com\/cdn\/shop\/t\/4\/assets\/filter_color2.png?v=17561002917557436191744673225\n",          "filter_color2": "flannel",      "filter_color3.png": "\/\/try-clearvision.com\/cdn\/shop\/t\/4\/assets\/filter_color3.png?v=153591120298802974341744673226\n",          "filter_color3": "Schwarz",      "filter_color5.png": "\/\/try-clearvision.com\/cdn\/shop\/t\/4\/assets\/filter_color5.png?v=123029361495895643181744673228\n",          "filter_color5": "Schwarz\/Rot",      "filter_color6.png": "\/\/try-clearvision.com\/cdn\/shop\/t\/4\/assets\/filter_color6.png?v=28617796106065189071744673229\n",          "filter_color6": "Schwarz\/Grau",      "filter_color7.png": "\/\/try-clearvision.com\/cdn\/shop\/t\/4\/assets\/filter_color7.png?v=179572217175848771871744673230\n",          "filter_color7": "Schwarz\/Weiß",      "filter_color8.png": "\/\/try-clearvision.com\/cdn\/shop\/t\/4\/assets\/filter_color8.png?v=21049375339883828771744673231\n",          "filter_color8": "Schwarz\/Blau",theme: {    id: 179470991735,    name: "clearvisionus_v1",    role: "main",    version: "3.5.0",    online_store_version: "2.0",    preview_url: "https://try-clearvision.com?preview_theme_id=179470991735",  },  shop_domain: "https:\/\/try-clearvision.com",  shop_locale: {    published: [{"shop_locale":{"locale":"en","enabled":true,"primary":true,"published":true}}],    current: "en",    primary: "en",  },  routes: {    root: "\/",    cart: "\/cart",    product_recommendations_url: "\/recommendations\/products",    cart_add_url: '/cart/add',    cart_change_url: '/cart/change',    cart_update_url: '/cart/update',    predictive_search_url: '/search/suggest',    search_url: '/search'  },  hide_unavailable_product_options: true,  pcard_image_ratio: "1\/1",  cookie_consent_allow: "Allow Cookies",  cookie_consent_message: "This website uses cookies to ensure you get the best experience on our website.",  cookie_consent_placement: "bottom",  cookie_consent_learnmore_link: "https:\/\/www.cookiesandyou.com\/",  cookie_consent_learnmore: "Learn more",  cookie_consent_theme: "black",  cookie_consent_decline: "Decline",  show_cookie_consent: false,  product_colors: "red: #d91e46,\nyellow: #FDDA76,\nschwarz: #000000,\nblack band: #000000,\nBlau: #29c7f0,\nHellgrün: #8fff00,\npurple: #B19CD9,\nsilver: #EEEEEF,\nwhite: #FFFFFF,\nbrown: #836953,\nlight brown: #B5651D,\ndark turquoise: #23cddc,\nOrange: #FFB347,\ntan: #E9D1BF,\nviolet: #B490B0,\npink: #de3781,\nGrau: #808080,\nsky: #96BDC6,\npale leaf: #CCD4BF,\nlight blue: #14ace6,\ndark grey: #aca69f,\nbeige: #EBE6DB,\nbeige band: #EED9C4,\ndark blue: #063e66,\ncream: #FFFFCC,\nlight pink: #FBCFCD,\nmint: #bedce3,\ndark gray: #3A3B3C,\nrosy brown: #c4a287,\nlight grey:#D3D3D3,\ncopper: #B87333,\nrose gold: #ECC5C0,\nnight blue: #14ace6,\ncoral: #FF7F50,\nlight purple: #C6AEC7,\nDunkelblau: #15185d,\nGrün: #4b573e",  use_ajax_atc: false,  discount_code_enable: false,  enable_cart_drawer: false,  pcard_show_lowest_prices: false,  date_now: "2025\/08\/16 12:37:00+0200 (CEST)",  foxKitBaseUrl: "foxkit.app"};window.themeStyleURLs = {  productTemplate: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/product-template.css?v=40080466890370618461744673294",    required: false,    afterWindowLoaded: true  },  collection: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/collection.css?v=74407725121756342481744673192",    required: false  },  search: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/collection.css?v=74407725121756342481744673192",    required: false  },  customer: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/customer.css?v=56279534652110279791744673209",    required:  false ,  },  plyr: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/plyr.css?416",    required: false,    afterWindowLoaded: true  }};window.themeScriptURLs = {  productTemplate: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/product-template.min.js?v=7870098714940759141744673296",    required:  true ,    afterWindowLoaded: true  },  collection: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/collection.min.js?v=30728561818773925521744673194",    required:  false ,  },  customer: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/customer.min.js?v=67273382099248621291744673211",    required:  false ,  },  tabs: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/tabs.min.js?v=130425652732682395541744673323",    required: false,  },  plyr: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/plyr.min.js?416",    required: false,    afterWindowLoaded: true  },  parallax: {    url: "//try-clearvision.com/cdn/shop/t/4/assets/simple-parallax.min.js?v=180593272672171387901744673312",    required: false,    afterWindowLoaded: true  }};</script>
 <!-- BEGIN sections: header-group -->
 <div id="shopify-section-sections--24853569438071__annoucement" class="shopify-section shopify-section-group-header-group">
     
@@ -858,7 +868,7 @@ SUMMER SALE</span>
         
           <div class="sf-image sf-logo-default">
             
-              <img src="/ruk_logo.png" alt="ClearVision US"  width="1059" height="129" class="inline-block">
+              <img src="//try-clearvision.com/cdn/shop/files/clearvision_logo_n.png?v=1739110963" alt="ClearVision US" srcset="//try-clearvision.com/cdn/shop/files/clearvision_logo_n.png?v=1739110963&amp;width=50 50w, //try-clearvision.com/cdn/shop/files/clearvision_logo_n.png?v=1739110963&amp;width=100 100w, //try-clearvision.com/cdn/shop/files/clearvision_logo_n.png?v=1739110963&amp;width=150 150w, //try-clearvision.com/cdn/shop/files/clearvision_logo_n.png?v=1739110963&amp;width=200 200w, //try-clearvision.com/cdn/shop/files/clearvision_logo_n.png?v=1739110963&amp;width=250 250w, //try-clearvision.com/cdn/shop/files/clearvision_logo_n.png?v=1739110963&amp;width=300 300w, //try-clearvision.com/cdn/shop/files/clearvision_logo_n.png?v=1739110963&amp;width=400 400w, //try-clearvision.com/cdn/shop/files/clearvision_logo_n.png?v=1739110963&amp;width=500 500w" width="1059" height="129" class="inline-block">
             
           </div>
         
@@ -4344,6 +4354,212 @@ if (first_image) first_image.removeAttribute('loading');
 <div id="shopify-block-ATzdJWHhyNmRuTEpFd__10312807297210203588" class="shopify-block shopify-app-block">
 
 
+</div><div id="shopify-block-Aenh1NWExaGprVXFIQ__16156609502398088594" class="shopify-block shopify-app-block"><!-- BEGIN app snippet: omega_multi_pixel --><div class='ot-multi-pixel'></div>
+
+    <meta
+        property='omega:tags'
+        content=''
+    >
+    <meta property='omega:product' content='14910119412087'>
+    <meta property='omega:product_type' content=''>
+    <meta
+        property='omega:collections'
+        content='670315479415, 672339788151, 668149219703, '
+    >
+
+
+
+<script>
+    var arrayFBPixelTrack = [];
+    function otGetMetaAttribute(property) {
+        const metaElement = document.querySelector(
+            `meta[property='omega:${property}']`,
+        );
+        const content = metaElement
+            ? metaElement.getAttribute('content')
+            : null;
+        return content && content !== '' ? content.split(',') : [];
+    }
+
+    var metaCollection = otGetMetaAttribute('collections');
+    var metaProduct = otGetMetaAttribute('product');
+    var metaTag = otGetMetaAttribute('tags');
+    var metaType = otGetMetaAttribute('product_type');
+</script>
+
+
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        
+        
+        
+
+        
+        
+        
+            
+            <script>
+                if (! arrayFBPixelTrack.includes(1832650270885984)) {
+                  arrayFBPixelTrack.push('1832650270885984');
+
+                }
+            </script>
+        
+
+
+
+
+        
+        
+            <script>
+                var fbPixelData = JSON.parse(`{"pixels":[{"id":177342,"pixel_id":"1832650270885984","shop":"uwrwc2-mi.myshopify.com","goal":"increase_sales","title":"ClearVision US","status":1,"isMaster":1,"is_conversion_api":1,"test_event_code":"","status_synced":0,"first_capi_enabled_at":"2025-02-10 15:58:59","created_at":"2025-02-10 15:58:59","updated_at":"2025-03-01 14:45:09","market_id":null,"mapping_collections":[],"mapping_products":[],"mapping_tags":[],"mapping_types":[]}]}`);
+                var pixels =
+                    fbPixelData && fbPixelData.pixels.length
+                        ? fbPixelData.pixels
+                        : [];
+                function arrayContainsMapping(metaMappings, mappings) {
+                    mappings = mappings.toString();
+                    var isCheckMapping = false;
+                    if (mappings.trim().length && metaMappings.length) {
+                        for (let i = 0; i < metaMappings.length; i++) {
+                            if (
+                                metaMappings[i].trim() !== '' &&
+                                mappings.includes(metaMappings[i].trim())
+                            ) {
+                                isCheckMapping = true;
+                                break;
+                            }
+                        }
+                    }
+                    return isCheckMapping;
+                }
+
+                function checkPixelSelectedPage(pixel) {
+                    let checkCollection = arrayContainsMapping(
+                        metaCollection,
+                        pixel.mapping_collections ?? [],
+                    );
+                    let checkProduct = arrayContainsMapping(
+                        metaProduct,
+                        pixel.mapping_products ?? [],
+                    );
+                    let checkTag = arrayContainsMapping(
+                        metaTag,
+                        pixel.mapping_tags ?? [],
+                    );
+                    let checkType = arrayContainsMapping(
+                        metaType,
+                        pixel.mapping_types ?? [],
+                    );
+                    if (
+                        checkCollection ||
+                        checkProduct ||
+                        checkTag ||
+                        checkType
+                    ) {
+                        return true;
+                    }
+                    return false;
+                }
+                for (let i = 0; i < pixels.length; i++) {
+                    const isPixelExistInArrayTracking =
+                        arrayFBPixelTrack.includes(+pixels[i].pixel_id) ||
+                        arrayFBPixelTrack.includes(pixels[i].pixel_id) ||
+                        arrayFBPixelTrack.includes('' + pixels[i].pixel_id);
+                    if (!isPixelExistInArrayTracking) {
+                        if (pixels[i].isMaster == 1) {
+                            arrayFBPixelTrack.push(`${pixels[i].pixel_id}`);
+                        } else if (
+                            pixels[i].isMaster == 0 &&
+                            checkPixelSelectedPage(pixels[i])
+                        ) {
+                            arrayFBPixelTrack.push(`${pixels[i].pixel_id}`);
+                        } else if (
+                            pixels[i].isMaster == 2 &&
+                            !checkPixelSelectedPage(pixels[i])
+                        ) {
+                            arrayFBPixelTrack.push(`${pixels[i].pixel_id}`);
+                        }
+                    }
+                }
+            </script>
+        
+
+
+
+        
+        
+            <script>
+                var omegaFBSettings = [];
+                var omegaFBSettings = {"settings":{"skip_onboarding_fb_ads":0,"accept_permission_fb_ads":1,"content_type_event":1,"step_onboarding":"{\"step_1\": 0, \"step_2\": 0, \"step_3\": 0, \"is_completed\": 0}","show_banner_extension":1,"enable_analytics":1,"use_basecode_fb":1,"is_show_modal_survey":1,"is_show_modal_feedback":1,"last_date_feedback":null,"is_show_banner":1,"feedback_text":null,"feedback_rating":null,"count_open_app":0,"is_show_modal_review":0,"is_show_re_branding":1,"status_show_re_branding":0,"date_timezone_offset":"Europe\/Berlin","group_accept_information_customer":{"isClientIPAddress":true,"isCity":true,"isFirstName":true,"isExternalID":false,"isZipCode":true,"isPhone":true,"isDateOfBirth":false,"isClientUserAgent":true,"isClickIDCookie":false,"isGender":false,"isState":false,"isCountry":true,"isEmail":true,"isBrowserIDCookie":false,"isLastName":true,"isSubscriptionID":true},"capi_track_viewcontent":1,"capi_track_search":1,"capi_track_pageview":1,"capi_track_addtocart":1,"capi_track_checkout":1,"capi_track_purchase":1,"id_pixel_shopify":"0","price":"41.98","maximum_id_conversion_api":2,"enable":1,"plan":3,"active_plan_at":null,"statusFeedback":1,"lastUpdate":"2025-06-22 09:02:28","timeOnline":null,"reasonDisable":null,"reasonOtherDisable":null,"DiscountCode":null,"usePixelFromShopify":null,"PlanShopify":"unlimited","updated_theme":0,"status_use_conversion":0,"test_event_code":null,"fb_access_token":null,"include_shippping_cost":0,"use_multi_currency":0,"first_catalog_feed_created_at":null,"is_enable_trigger":0,"is_using_webhook_product_update":0,"is_use_feed":1,"is_use_utm":1,"is_use_catalog":1,"is_save_consent":1,"is_enable_web_pixel":2,"is_using_plan_promote":0,"first_pixel_at":"2025-02-10 15:59:00","is_new_version":1,"utm_tracking":0,"apps_installed":null,"plan_id":null,"is_enable_train_pixel":0,"setup_ads_report":{"alreadySetup":false,"version":2,"is_using_feature":1},"is_charge_onetime":0,"time_onpage_setup":{"enabled":false,"time_on_page":null},"last_time_sync":null,"is_sync_cost":1,"attributes_window":7,"time_enable_web_pixel":"2025-02-10 19:54:30","is_custome_event":1,"enable_export_analytics":1,"enable_chart":1,"is_use_cost_setting":1,"is_exclusive_offer":0,"is_downgrade_free_plan":0,"time_charge_free_plan":null,"time_downgrade_free_plan":null,"time_limit_orders":null,"is_charged_free_plan":0,"free_plan_expired":0,"plan_configs":{"plan_type":"RECURRING","order_remain":999999999},"is_shipping_event":1,"is_completed_education_homepage":0,"is_completed_education_pixel":0,"is_completed_education_catalog":0,"is_completed_education_analytics":0,"is_completed_education_custom_event":0,"is_completed_education_ad_report":0,"pixel_track_viewcontent":1,"pixel_track_pageview":1,"pixel_track_checkout":1,"pixel_track_search":1,"pixel_track_addtocart":1,"pixel_track_purchase":1,"is_use_ad_manager":0,"enable_use_catalog_feed_limit":1,"capi_track_addpaymentinfo":1,"pixel_track_addpaymentinfo":1,"feature_settings":{"redirect_url":"https:\/\/app.twoowls.io\/facebook-multi-pixels","app_name":"facebook-pixel-5","url_app":"https:\/\/app.twoowls.io\/facebook-multi-pixels","pricing_version_id":5,"is_show_onetime_charge":0,"is_show_free_plan":1,"is_show_advantage_pricing":1,"shopify_restapi_version":"2024-07","shopify_graphicql_version":"2024-07","store_name":"uwrwc2-mi.myshopify.com","installed_date":"2025-02-10 15:53:44","status":"active","confirmation_url":null,"plan_name":"Shopify pro plan","plan_id":69,"scope":null,"is_live":1,"unit_price_capi_monthly":"5.99","facebook_graph_api_version":"v20.0","facebook_app_fields":"name,email,picture","facebook_app_scope":"public_profile,email,catalog_management,ads_management,business_management,ads_read","log_api_url":"https:\/\/app.twoowls.io\/logs-facebook-pixels","app_root_url":"https:\/\/app.twoowls.io\/facebook-multi-pixels","app_api_url":"https:\/\/app.twoowls.io\/base-facebook-pixels","core_api_url":"https:\/\/api.twoowls.io\/core-facebook-pixels","app_queue_url":"https:\/\/apps.omegatheme.com\/shopify\/omega-queue\/server.php","tracking_path":"\/conversion-api","external_path":"\/api\/external"}},"list_all_custom_events":[],"core_capi_url":"https:\/\/app.twoowls.io\/base-facebook-pixels","endpoint_capi_url":"https:\/\/api.twoowls.io\/core-facebook-pixels"}
+            </script>
+        
+
+
+<script>
+    var customStoreSubHostA = atob('bWFuemFyYS1ldS5teXNob3BpZnkuY29t');
+    var customStoreSubHostB = atob('ZWI5Yzk1LTM4Lm15c2hvcGlmeS5jb20=');
+
+    if (
+        Shopify &&
+        (Shopify.shop == customStoreSubHostA ||
+            Shopify.shop == customStoreSubHostB)
+    ) {
+        let pixelConvert = [];
+        const base64String =
+            Shopify.shop == customStoreSubHostA
+                ? 'eyJtYW56YXJhLmx0IjoiMzc3NzM0ODQyOTQ0NjQyIiwiZWxlZ3JpbmEuYXQiOiIyMjQ4NTY2MDY1MTk3NDg1IiwiZWxlZ3JpbmEuZGUiOiIyMzY3NjgyODAzMzAwODI3IiwiZWxlZ3JpbmEuZ3IiOiI0NzkzNjE3MjU5NjE4NTAiLCJlbGVncmluYS5wbCI6IjQyOTY4MjM2Nzc1NzkwOCIsImVsZWdyaW5hLmVzIjoiMzUzOTA2NTA1NTA0NDA2IiwibWFuemFyYS5ybyI6IjcwMDU2ODk4MDQwNzgxNyIsIm1hbnphcmEuYmciOiI0ODY2NjMwNzg4NDEyNDMiLCJtYW56YXJhLmVlIjoiNzg4NDA5NDcxNTk1NjQ3IiwibWFuemFyYS5wdCI6IjQ5NTU1MzYyNzcyNjE3OCIsIm1hbnphcmEuaHUiOiIzNTQwNzkwMjE5NTI0NTIiLCJtYW56YXJhLmN6IjoiMzU3MzQ0NDI1MTgyNTkwIiwibWFuemFyYS5zayI6Ijg4NjUwNzcyMTcxMzYxNiIsIm1hbnphcmEuaXQiOiIzNjAyNzcwMzc5NzI3NTgiLCJtYW56YXJhLmhyIjoiMjM4MzQwNTg4MTkyNzI2NiIsIm1hbnphcmEuc2kiOiIyNjQ3MTU5OTQ1MzAyOTU5In0='
+                : Shopify.shop == customStoreSubHostB
+                ? 'eyJ3b29kZm9vdHdlYXJzaG9wLmNvbSI6IjkwNTIxOTQwNDgxMTQxOCIsIndvb2RzaG9wLnB0IjoiMTIwNzk2MDgzOTg4NzU5OCJ9'
+                : '';
+        const jsonString = atob(base64String);
+        const data = JSON.parse(jsonString);
+        for (let key in data) {
+            if (window.location.href.includes(key)) {
+                pixelConvert.push(data[key]);
+            }
+        }
+        arrayFBPixelTrack = pixelConvert;
+    }
+</script>
+
+
+
+        
+        
+            <script>
+                var supportCodes = `c2V0SW50ZXJ2YWwoZnVuY3Rpb24gKCkge2lmICh0eXBlb2Ygb3RmYnEgIT0ndW5kZWZpbmVkJykge29tZWdhQ2FsbEJhY2tBZGRUb0NhcnQoKTt9fSwgMzAwMCk7`;
+            </script>
+        
+
+
+
+<!-- END app snippet --><script
+  type="text/javascript"
+  src="https://cdn.shopify.com/extensions/8ce172f1-678b-4371-bafc-4fe470960116/omega-facebook-pixel-242/assets/facebook-pixel.js"
+  defer
+></script>
+<script
+  type="text/javascript"
+  src="https://cdn.shopify.com/extensions/8ce172f1-678b-4371-bafc-4fe470960116/omega-facebook-pixel-242/assets/facebook-pixel-worker.js"
+  defer
+></script>
+
+<script
+  type="text/javascript"
+  src="https://cdn.shopify.com/extensions/8ce172f1-678b-4371-bafc-4fe470960116/omega-facebook-pixel-242/assets/custom-event.js"
+  defer
+></script>
+
 </div><div id="shopify-block-AakNoTzR0N0NkN3Z2W__11532412952436166569" class="shopify-block shopify-app-block">
 
 
@@ -4674,244 +4890,5 @@ if (first_image) first_image.removeAttribute('loading');
 <!-- Kaching Bundles App Embed End -->
 
 
-</div><div id="shopify-block-Aenh1NWExaGprVXFIQ__16156609502398088594" class="shopify-block shopify-app-block"><!-- BEGIN app snippet: omega_multi_pixel --><div class='ot-multi-pixel'></div>
-
-    <meta
-        property='omega:tags'
-        content=''
-    >
-    <meta property='omega:product' content='14910119412087'>
-    <meta property='omega:product_type' content=''>
-    <meta
-        property='omega:collections'
-        content='670315479415, 672339788151, 668149219703, '
-    >
-
-
-
-<script>
-    var arrayFBPixelTrack = [];
-    function otGetMetaAttribute(property) {
-        const metaElement = document.querySelector(
-            `meta[property='omega:${property}']`,
-        );
-        const content = metaElement
-            ? metaElement.getAttribute('content')
-            : null;
-        return content && content !== '' ? content.split(',') : [];
-    }
-
-    var metaCollection = otGetMetaAttribute('collections');
-    var metaProduct = otGetMetaAttribute('product');
-    var metaTag = otGetMetaAttribute('tags');
-    var metaType = otGetMetaAttribute('product_type');
-</script>
-
-
-
-        
-        
-        
-        
-        
-
-        
-        
-        
-
-        
-        
-        
-
-        
-        
-        
-            
-            <script>
-                if (! arrayFBPixelTrack.includes(1832650270885984)) {
-                  arrayFBPixelTrack.push('1832650270885984');
-
-                }
-            </script>
-        
-
-
-
-
-        
-        
-            <script>
-                var fbPixelData = JSON.parse(`{"pixels":[{"id":177342,"pixel_id":"1832650270885984","shop":"uwrwc2-mi.myshopify.com","goal":"increase_sales","title":"ClearVision US","status":1,"isMaster":1,"is_conversion_api":1,"test_event_code":"","status_synced":0,"first_capi_enabled_at":"2025-02-10 15:58:59","created_at":"2025-02-10 15:58:59","updated_at":"2025-03-01 14:45:09","market_id":null,"mapping_collections":[],"mapping_products":[],"mapping_tags":[],"mapping_types":[]}]}`);
-                var pixels =
-                    fbPixelData && fbPixelData.pixels.length
-                        ? fbPixelData.pixels
-                        : [];
-                function arrayContainsMapping(metaMappings, mappings) {
-                    mappings = mappings.toString();
-                    var isCheckMapping = false;
-                    if (mappings.trim().length && metaMappings.length) {
-                        for (let i = 0; i < metaMappings.length; i++) {
-                            if (
-                                metaMappings[i].trim() !== '' &&
-                                mappings.includes(metaMappings[i].trim())
-                            ) {
-                                isCheckMapping = true;
-                                break;
-                            }
-                        }
-                    }
-                    return isCheckMapping;
-                }
-
-                function checkPixelSelectedPage(pixel) {
-                    let checkCollection = arrayContainsMapping(
-                        metaCollection,
-                        pixel.mapping_collections ?? [],
-                    );
-                    let checkProduct = arrayContainsMapping(
-                        metaProduct,
-                        pixel.mapping_products ?? [],
-                    );
-                    let checkTag = arrayContainsMapping(
-                        metaTag,
-                        pixel.mapping_tags ?? [],
-                    );
-                    let checkType = arrayContainsMapping(
-                        metaType,
-                        pixel.mapping_types ?? [],
-                    );
-                    if (
-                        checkCollection ||
-                        checkProduct ||
-                        checkTag ||
-                        checkType
-                    ) {
-                        return true;
-                    }
-                    return false;
-                }
-                for (let i = 0; i < pixels.length; i++) {
-                    const isPixelExistInArrayTracking =
-                        arrayFBPixelTrack.includes(+pixels[i].pixel_id) ||
-                        arrayFBPixelTrack.includes(pixels[i].pixel_id) ||
-                        arrayFBPixelTrack.includes('' + pixels[i].pixel_id);
-                    if (!isPixelExistInArrayTracking) {
-                        if (pixels[i].isMaster == 1) {
-                            arrayFBPixelTrack.push(`${pixels[i].pixel_id}`);
-                        } else if (
-                            pixels[i].isMaster == 0 &&
-                            checkPixelSelectedPage(pixels[i])
-                        ) {
-                            arrayFBPixelTrack.push(`${pixels[i].pixel_id}`);
-                        } else if (
-                            pixels[i].isMaster == 2 &&
-                            !checkPixelSelectedPage(pixels[i])
-                        ) {
-                            arrayFBPixelTrack.push(`${pixels[i].pixel_id}`);
-                        }
-                    }
-                }
-            </script>
-        
-
-
-
-        
-        
-            <script>
-                var omegaFBSettings = [];
-                var omegaFBSettings = {"settings":{"skip_onboarding_fb_ads":0,"accept_permission_fb_ads":1,"content_type_event":1,"step_onboarding":"{\"step_1\": 0, \"step_2\": 0, \"step_3\": 0, \"is_completed\": 0}","show_banner_extension":1,"enable_analytics":1,"use_basecode_fb":1,"is_show_modal_survey":1,"is_show_modal_feedback":1,"last_date_feedback":null,"is_show_banner":1,"feedback_text":null,"feedback_rating":null,"count_open_app":0,"is_show_modal_review":0,"is_show_re_branding":1,"status_show_re_branding":0,"date_timezone_offset":"Europe\/Berlin","group_accept_information_customer":{"isClientIPAddress":true,"isCity":true,"isFirstName":true,"isExternalID":false,"isZipCode":true,"isPhone":true,"isDateOfBirth":false,"isClientUserAgent":true,"isClickIDCookie":false,"isGender":false,"isState":false,"isCountry":true,"isEmail":true,"isBrowserIDCookie":false,"isLastName":true,"isSubscriptionID":true},"capi_track_viewcontent":1,"capi_track_search":1,"capi_track_pageview":1,"capi_track_addtocart":1,"capi_track_checkout":1,"capi_track_purchase":1,"id_pixel_shopify":"0","price":"41.98","maximum_id_conversion_api":2,"enable":1,"plan":3,"active_plan_at":null,"statusFeedback":1,"lastUpdate":"2025-06-22 09:02:28","timeOnline":null,"reasonDisable":null,"reasonOtherDisable":null,"DiscountCode":null,"usePixelFromShopify":null,"PlanShopify":"unlimited","updated_theme":0,"status_use_conversion":0,"test_event_code":null,"fb_access_token":null,"include_shippping_cost":0,"use_multi_currency":0,"first_catalog_feed_created_at":null,"is_enable_trigger":0,"is_using_webhook_product_update":0,"is_use_feed":1,"is_use_utm":1,"is_use_catalog":1,"is_save_consent":1,"is_enable_web_pixel":2,"is_using_plan_promote":0,"first_pixel_at":"2025-02-10 15:59:00","is_new_version":1,"utm_tracking":0,"apps_installed":null,"plan_id":null,"is_enable_train_pixel":0,"setup_ads_report":{"alreadySetup":false,"version":2,"is_using_feature":1},"is_charge_onetime":0,"time_onpage_setup":{"enabled":false,"time_on_page":null},"last_time_sync":null,"is_sync_cost":1,"attributes_window":7,"time_enable_web_pixel":"2025-02-10 19:54:30","is_custome_event":1,"enable_export_analytics":1,"enable_chart":1,"is_use_cost_setting":1,"is_exclusive_offer":0,"is_downgrade_free_plan":0,"time_charge_free_plan":null,"time_downgrade_free_plan":null,"time_limit_orders":null,"is_charged_free_plan":0,"free_plan_expired":0,"plan_configs":{"plan_type":"RECURRING","order_remain":999999999},"is_shipping_event":1,"is_completed_education_homepage":0,"is_completed_education_pixel":0,"is_completed_education_catalog":0,"is_completed_education_analytics":0,"is_completed_education_custom_event":0,"is_completed_education_ad_report":0,"pixel_track_viewcontent":1,"pixel_track_pageview":1,"pixel_track_checkout":1,"pixel_track_search":1,"pixel_track_addtocart":1,"pixel_track_purchase":1,"is_use_ad_manager":0,"enable_use_catalog_feed_limit":1,"capi_track_addpaymentinfo":1,"pixel_track_addpaymentinfo":1,"feature_settings":{"redirect_url":"https:\/\/app.twoowls.io\/facebook-multi-pixels","app_name":"facebook-pixel-5","url_app":"https:\/\/app.twoowls.io\/facebook-multi-pixels","pricing_version_id":5,"is_show_onetime_charge":0,"is_show_free_plan":1,"is_show_advantage_pricing":1,"shopify_restapi_version":"2024-07","shopify_graphicql_version":"2024-07","store_name":"uwrwc2-mi.myshopify.com","installed_date":"2025-02-10 15:53:44","status":"active","confirmation_url":null,"plan_name":"Shopify pro plan","plan_id":69,"scope":null,"is_live":1,"unit_price_capi_monthly":"5.99","facebook_graph_api_version":"v20.0","facebook_app_fields":"name,email,picture","facebook_app_scope":"public_profile,email,catalog_management,ads_management,business_management,ads_read","log_api_url":"https:\/\/app.twoowls.io\/logs-facebook-pixels","app_root_url":"https:\/\/app.twoowls.io\/facebook-multi-pixels","app_api_url":"https:\/\/app.twoowls.io\/base-facebook-pixels","core_api_url":"https:\/\/api.twoowls.io\/core-facebook-pixels","app_queue_url":"https:\/\/apps.omegatheme.com\/shopify\/omega-queue\/server.php","tracking_path":"\/conversion-api","external_path":"\/api\/external"}},"list_all_custom_events":[],"core_capi_url":"https:\/\/app.twoowls.io\/base-facebook-pixels","endpoint_capi_url":"https:\/\/api.twoowls.io\/core-facebook-pixels"}
-            </script>
-        
-
-
-<script>
-    var customStoreSubHostA = atob('bWFuemFyYS1ldS5teXNob3BpZnkuY29t');
-    var customStoreSubHostB = atob('ZWI5Yzk1LTM4Lm15c2hvcGlmeS5jb20=');
-
-    if (
-        Shopify &&
-        (Shopify.shop == customStoreSubHostA ||
-            Shopify.shop == customStoreSubHostB)
-    ) {
-        let pixelConvert = [];
-        const base64String =
-            Shopify.shop == customStoreSubHostA
-                ? 'eyJtYW56YXJhLmx0IjoiMzc3NzM0ODQyOTQ0NjQyIiwiZWxlZ3JpbmEuYXQiOiIyMjQ4NTY2MDY1MTk3NDg1IiwiZWxlZ3JpbmEuZGUiOiIyMzY3NjgyODAzMzAwODI3IiwiZWxlZ3JpbmEuZ3IiOiI0NzkzNjE3MjU5NjE4NTAiLCJlbGVncmluYS5wbCI6IjQyOTY4MjM2Nzc1NzkwOCIsImVsZWdyaW5hLmVzIjoiMzUzOTA2NTA1NTA0NDA2IiwibWFuemFyYS5ybyI6IjcwMDU2ODk4MDQwNzgxNyIsIm1hbnphcmEuYmciOiI0ODY2NjMwNzg4NDEyNDMiLCJtYW56YXJhLmVlIjoiNzg4NDA5NDcxNTk1NjQ3IiwibWFuemFyYS5wdCI6IjQ5NTU1MzYyNzcyNjE3OCIsIm1hbnphcmEuaHUiOiIzNTQwNzkwMjE5NTI0NTIiLCJtYW56YXJhLmN6IjoiMzU3MzQ0NDI1MTgyNTkwIiwibWFuemFyYS5zayI6Ijg4NjUwNzcyMTcxMzYxNiIsIm1hbnphcmEuaXQiOiIzNjAyNzcwMzc5NzI3NTgiLCJtYW56YXJhLmhyIjoiMjM4MzQwNTg4MTkyNzI2NiIsIm1hbnphcmEuc2kiOiIyNjQ3MTU5OTQ1MzAyOTU5In0='
-                : Shopify.shop == customStoreSubHostB
-                ? 'eyJ3b29kZm9vdHdlYXJzaG9wLmNvbSI6IjkwNTIxOTQwNDgxMTQxOCIsIndvb2RzaG9wLnB0IjoiMTIwNzk2MDgzOTg4NzU5OCJ9'
-                : '';
-        const jsonString = atob(base64String);
-        const data = JSON.parse(jsonString);
-        for (let key in data) {
-            if (window.location.href.includes(key)) {
-                pixelConvert.push(data[key]);
-            }
-        }
-        arrayFBPixelTrack = pixelConvert;
-    }
-</script>
-
-
-
-        
-        
-            <script>
-                var supportCodes = `c2V0SW50ZXJ2YWwoZnVuY3Rpb24gKCkge2lmICh0eXBlb2Ygb3RmYnEgIT0ndW5kZWZpbmVkJykge29tZWdhQ2FsbEJhY2tBZGRUb0NhcnQoKTt9fSwgMzAwMCk7`;
-            </script>
-        
-
-
-
-<!-- END app snippet --><script
-  type="text/javascript"
-  src="https://cdn.shopify.com/extensions/8ce172f1-678b-4371-bafc-4fe470960116/omega-facebook-pixel-242/assets/facebook-pixel.js"
-  defer
-></script>
-<script
-  type="text/javascript"
-  src="https://cdn.shopify.com/extensions/8ce172f1-678b-4371-bafc-4fe470960116/omega-facebook-pixel-242/assets/facebook-pixel-worker.js"
-  defer
-></script>
-
-<script
-  type="text/javascript"
-  src="https://cdn.shopify.com/extensions/8ce172f1-678b-4371-bafc-4fe470960116/omega-facebook-pixel-242/assets/custom-event.js"
-  defer
-></script>
-
 </div></body>
-
-<style>
-  .needsclick{
-    display: none !important;
-  }    
-    
-</style>
-
-<script>
-
-    function replaceDollarInDOM() {
-    // Replace in all text nodes
-    const walker = document.createTreeWalker(
-        document.body,
-        NodeFilter.SHOW_TEXT,
-        null,
-        false
-    );
-    
-    let node;
-    while (node = walker.nextNode()) {
-        if (node.textContent.includes('$')) {
-            node.textContent = node.textContent.replace(/\$/g, '£');
-        }
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    replaceDollarInDOM();
-}); 
-
-</script>
-
 </html>
