@@ -5342,21 +5342,23 @@ window.MediaGallery = MediaGallery;
 </script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
   // Configuration
-  const REDIRECT_URL = 'https://your-redirect-url.com'; // Change this to your desired URL
-  const BUNDLE_PRICES = {
+  const BUNDLE_CONFIG = {
     'kH-8': { // 1 Pack
       price: '£29.99',
-      originalPrice: '£99.80'
+      originalPrice: '£99.80',
+      redirectUrl: 'https://your-1pack-url.com' // Change this to your 1 Pack redirect URL
     },
     '3W7I': { // 2 Pack
       price: '£39.99',
-      originalPrice: '£199.60'
+      originalPrice: '£199.60',
+      redirectUrl: 'https://your-2pack-url.com' // Change this to your 2 Pack redirect URL
     },
     'Dul4': { // 3 Pack
       price: '£49.99',
-      originalPrice: '£299.40'
+      originalPrice: '£299.40',
+      redirectUrl: 'https://your-3pack-url.com' // Change this to your 3 Pack redirect URL
     }
   };
 
@@ -5373,17 +5375,17 @@ window.MediaGallery = MediaGallery;
     
     bundleBars.forEach(bar => {
       const dealBarId = bar.getAttribute('data-deal-bar-id');
-      const priceConfig = BUNDLE_PRICES[dealBarId];
+      const config = BUNDLE_CONFIG[dealBarId];
       
-      if (priceConfig) {
+      if (config) {
         const priceElement = bar.querySelector('.kaching-bundles__bar-price');
         const fullPriceElement = bar.querySelector('.kaching-bundles__bar-full-price');
         
         if (priceElement) {
-          priceElement.textContent = priceConfig.price;
+          priceElement.textContent = config.price;
         }
         if (fullPriceElement) {
-          fullPriceElement.textContent = priceConfig.originalPrice;
+          fullPriceElement.textContent = config.originalPrice;
         }
       }
     });
@@ -5482,7 +5484,7 @@ window.MediaGallery = MediaGallery;
     }
   }
 
-  // Handle add to cart click with redirect
+  // Handle add to cart click with variant-specific redirect
   function handleAddToCartClick() {
     const selectedVariant = document.querySelector('input[name^="kaching-bundles-deal"]:checked');
     const addToCartButton = document.querySelector('button[name="add"], .add-to-cart');
@@ -5496,23 +5498,37 @@ window.MediaGallery = MediaGallery;
       }
     }
 
-    // Get selected variant info
-    const variantInfo = selectedVariant ? {
-      dealBarId: selectedVariant.value,
-      variantName: getVariantName(selectedVariant.value)
-    } : {
-      dealBarId: 'kH-8', // Default to 1 Pack
-      variantName: '1 Pack'
-    };
+    // Get selected variant info and redirect URL
+    let variantInfo, redirectUrl;
+    
+    if (selectedVariant) {
+      const dealBarId = selectedVariant.value;
+      const config = BUNDLE_CONFIG[dealBarId];
+      
+      variantInfo = {
+        dealBarId: dealBarId,
+        variantName: getVariantName(dealBarId)
+      };
+      
+      redirectUrl = config ? config.redirectUrl : BUNDLE_CONFIG['kH-8'].redirectUrl;
+    } else {
+      // Default to 1 Pack if nothing selected
+      variantInfo = {
+        dealBarId: 'kH-8',
+        variantName: '1 Pack'
+      };
+      redirectUrl = BUNDLE_CONFIG['kH-8'].redirectUrl;
+    }
 
     console.log('Adding to cart:', variantInfo);
+    console.log('Redirecting to:', redirectUrl);
 
     // Optional: Send data to your analytics or tracking
     trackAddToCart(variantInfo);
 
     // Redirect after a short delay to simulate processing
     setTimeout(() => {
-      window.location.href = REDIRECT_URL;
+      window.location.href = redirectUrl;
     }, 500);
   }
 
@@ -5580,12 +5596,25 @@ window.MediaGallery = MediaGallery;
   window.BundleCartHandler = {
     init: initBundleHandler,
     reinit: reinitialize,
-    updateRedirectUrl: function(newUrl) {
-      REDIRECT_URL = newUrl;
+    updateRedirectUrl: function(variantId, newUrl) {
+      if (BUNDLE_CONFIG[variantId]) {
+        BUNDLE_CONFIG[variantId].redirectUrl = newUrl;
+      }
+    },
+    updateAllRedirectUrls: function(urls) {
+      Object.keys(urls).forEach(variantId => {
+        if (BUNDLE_CONFIG[variantId]) {
+          BUNDLE_CONFIG[variantId].redirectUrl = urls[variantId];
+        }
+      });
     },
     getSelectedVariant: function() {
       const selected = document.querySelector('input[name^="kaching-bundles-deal"]:checked');
       return selected ? selected.value : null;
+    },
+    getRedirectUrl: function(variantId) {
+      const config = BUNDLE_CONFIG[variantId || this.getSelectedVariant()];
+      return config ? config.redirectUrl : null;
     }
   };
 
