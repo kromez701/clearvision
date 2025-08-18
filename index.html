@@ -4736,6 +4736,246 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </script>
 
+<script>
+
+class MediaGallery {
+  constructor(element) {
+    this.gallery = element;
+    this.isDesktop = element.dataset.screen === 'desktop';
+    this.currentIndex = 0;
+    this.totalSlides = 0;
+    
+    this.init();
+  }
+
+  init() {
+    this.setupSlider();
+    this.setupThumbnails();
+    this.setupControls();
+    this.updateSlidePositions();
+  }
+
+  setupSlider() {
+    this.mainSlider = this.gallery.querySelector('.main-slider');
+    this.slides = Array.from(this.mainSlider.querySelectorAll('.swiper-slide:not(.swiper-slide-duplicate)'));
+    this.totalSlides = this.slides.length;
+
+    // Set initial slide width
+    this.updateSlideWidth();
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      this.updateSlideWidth();
+      this.updateSlidePositions();
+    });
+  }
+
+  setupThumbnails() {
+    this.thumbnails = Array.from(this.gallery.querySelectorAll('.sf-media-nav .swiper-slide'));
+    
+    this.thumbnails.forEach((thumb, index) => {
+      thumb.addEventListener('click', () => {
+        this.goToSlide(index);
+      });
+    });
+  }
+
+  setupControls() {
+    const prevBtn = this.gallery.querySelector('.swiper-button-prev');
+    const nextBtn = this.gallery.querySelector('.swiper-button-next');
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => this.previousSlide());
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => this.nextSlide());
+    }
+
+    // Touch/swipe support
+    this.setupTouchControls();
+  }
+
+  setupTouchControls() {
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+
+    this.mainSlider.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    });
+
+    this.mainSlider.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      currentX = e.touches[0].clientX;
+    });
+
+    this.mainSlider.addEventListener('touchend', () => {
+      if (!isDragging) return;
+      isDragging = false;
+
+      const deltaX = startX - currentX;
+      const threshold = 50; // Minimum swipe distance
+
+      if (Math.abs(deltaX) > threshold) {
+        if (deltaX > 0) {
+          this.nextSlide();
+        } else {
+          this.previousSlide();
+        }
+      }
+    });
+  }
+
+  updateSlideWidth() {
+    const containerWidth = this.mainSlider.parentElement.offsetWidth;
+    
+    this.slides.forEach(slide => {
+      slide.style.width = `${containerWidth}px`;
+    });
+
+    // Also update duplicate slides
+    const duplicateSlides = this.mainSlider.querySelectorAll('.swiper-slide-duplicate');
+    duplicateSlides.forEach(slide => {
+      slide.style.width = `${containerWidth}px`;
+    });
+  }
+
+  goToSlide(index) {
+    if (index < 0 || index >= this.totalSlides) return;
+    
+    this.currentIndex = index;
+    this.updateSlidePositions();
+    this.updateThumbnails();
+    this.updateSlideClasses();
+  }
+
+  nextSlide() {
+    const nextIndex = (this.currentIndex + 1) % this.totalSlides;
+    this.goToSlide(nextIndex);
+  }
+
+  previousSlide() {
+    const prevIndex = this.currentIndex === 0 ? this.totalSlides - 1 : this.currentIndex - 1;
+    this.goToSlide(prevIndex);
+  }
+
+  updateSlidePositions() {
+    const slideWidth = this.slides[0].offsetWidth;
+    const translateX = -this.currentIndex * slideWidth;
+    
+    this.mainSlider.style.transform = `translate3d(${translateX}px, 0px, 0px)`;
+    this.mainSlider.style.transitionDuration = '300ms';
+  }
+
+  updateThumbnails() {
+    this.thumbnails.forEach((thumb, index) => {
+      thumb.classList.remove('swiper-slide-thumb-active');
+      if (index === this.currentIndex) {
+        thumb.classList.add('swiper-slide-thumb-active');
+      }
+    });
+  }
+
+  updateSlideClasses() {
+    // Remove all navigation classes
+    this.slides.forEach(slide => {
+      slide.classList.remove('swiper-slide-active', 'swiper-slide-prev', 'swiper-slide-next');
+    });
+
+    // Add current slide classes
+    const currentSlide = this.slides[this.currentIndex];
+    const prevSlide = this.slides[this.currentIndex === 0 ? this.totalSlides - 1 : this.currentIndex - 1];
+    const nextSlide = this.slides[(this.currentIndex + 1) % this.totalSlides];
+
+    if (currentSlide) currentSlide.classList.add('swiper-slide-active');
+    if (prevSlide) prevSlide.classList.add('swiper-slide-prev');
+    if (nextSlide) nextSlide.classList.add('swiper-slide-next');
+
+    // Update thumbnail visibility classes
+    this.thumbnails.forEach((thumb, index) => {
+      thumb.classList.remove('swiper-slide-visible', 'swiper-slide-active', 'swiper-slide-next');
+      
+      if (index === this.currentIndex) {
+        thumb.classList.add('swiper-slide-visible', 'swiper-slide-active');
+      } else if (index === (this.currentIndex + 1) % this.totalSlides) {
+        thumb.classList.add('swiper-slide-visible', 'swiper-slide-next');
+      } else if (Math.abs(index - this.currentIndex) <= 2 || 
+                 (this.currentIndex < 2 && index >= this.totalSlides - 2) ||
+                 (this.currentIndex >= this.totalSlides - 2 && index < 2)) {
+        thumb.classList.add('swiper-slide-visible');
+      }
+    });
+  }
+
+  // Auto-play functionality (optional)
+  startAutoplay(interval = 5000) {
+    this.autoplayInterval = setInterval(() => {
+      this.nextSlide();
+    }, interval);
+  }
+
+  stopAutoplay() {
+    if (this.autoplayInterval) {
+      clearInterval(this.autoplayInterval);
+      this.autoplayInterval = null;
+    }
+  }
+
+  // Pause autoplay on hover
+  pauseOnHover() {
+    this.gallery.addEventListener('mouseenter', () => this.stopAutoplay());
+    this.gallery.addEventListener('mouseleave', () => this.startAutoplay());
+  }
+}
+
+// Initialize all media galleries on the page
+document.addEventListener('DOMContentLoaded', function() {
+  const mediaGalleries = document.querySelectorAll('media-gallery');
+  
+  mediaGalleries.forEach(gallery => {
+    new MediaGallery(gallery);
+  });
+});
+
+// Handle dynamic content loading (for AJAX-loaded products)
+document.addEventListener('shopify:section:load', function(event) {
+  const mediaGalleries = event.target.querySelectorAll('media-gallery');
+  
+  mediaGalleries.forEach(gallery => {
+    new MediaGallery(gallery);
+  });
+});
+
+// Utility function to reinitialize gallery if needed
+window.initializeMediaGallery = function(selector) {
+  const gallery = document.querySelector(selector);
+  if (gallery) {
+    return new MediaGallery(gallery);
+  }
+  return null;
+};
+
+// Handle variant changes (if using Shopify variant functionality)
+document.addEventListener('variant:change', function(event) {
+  const productId = event.detail.productId;
+  const gallery = document.querySelector(`media-gallery[data-product-id="${productId}"]`);
+  
+  if (gallery && event.detail.variant) {
+    // Reset to first slide when variant changes
+    const galleryInstance = gallery.mediaGalleryInstance;
+    if (galleryInstance) {
+      galleryInstance.goToSlide(0);
+    }
+  }
+});
+
+// Expose MediaGallery class globally for external access
+window.MediaGallery = MediaGallery;
+
+</script>
+
 
 
 </html>
