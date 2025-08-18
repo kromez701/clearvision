@@ -4977,8 +4977,7 @@ window.MediaGallery = MediaGallery;
 </script> -->
 
 <script>
-
-class MediaGallery {
+  class MediaGallery {
   constructor(element) {
     this.gallery = element;
     this.isDesktop = element.dataset.screen === 'desktop';
@@ -5081,6 +5080,42 @@ class MediaGallery {
     });
   }
 
+  setupPagination() {
+    const paginationContainer = this.gallery.querySelector('.swiper-pagination');
+    if (!paginationContainer) return;
+
+    // Clear existing bullets
+    paginationContainer.innerHTML = '';
+
+    // Create pagination bullets
+    for (let i = 0; i < this.totalSlides; i++) {
+      const bullet = document.createElement('span');
+      bullet.className = 'swiper-pagination-bullet';
+      bullet.addEventListener('click', () => this.goToSlide(i));
+      paginationContainer.appendChild(bullet);
+    }
+
+    this.paginationBullets = Array.from(paginationContainer.querySelectorAll('.swiper-pagination-bullet'));
+  }
+
+  setupThumbnailScroll() {
+    if (!this.thumbnailContainer) return;
+
+    // Add scroll buttons if needed
+    const navContainer = this.gallery.querySelector('.sf-media-nav');
+    const containerWidth = navContainer.offsetWidth;
+    const contentWidth = this.thumbnailContainer.scrollWidth;
+
+    if (contentWidth > containerWidth) {
+      // Enable horizontal scrolling
+      navContainer.style.overflowX = 'auto';
+      navContainer.style.scrollBehavior = 'smooth';
+      
+      // Hide scrollbar but keep functionality
+      navContainer.classList.add('sf-no-scroll-bar');
+    }
+  }
+
   updateSlideWidth() {
     const containerWidth = this.mainSlider.parentElement.offsetWidth;
     
@@ -5162,6 +5197,37 @@ class MediaGallery {
         thumb.classList.add('swiper-slide-visible');
       }
     });
+  }
+
+  updatePagination() {
+    if (!this.paginationBullets) return;
+
+    this.paginationBullets.forEach((bullet, index) => {
+      bullet.classList.toggle('swiper-pagination-bullet-active', index === this.currentIndex);
+    });
+  }
+
+  scrollThumbnailIntoView(index) {
+    if (!this.thumbnails[index] || !this.thumbnailContainer) return;
+
+    const thumbnail = this.thumbnails[index];
+    const navContainer = this.gallery.querySelector('.sf-media-nav .nav-swiper-container');
+    
+    if (navContainer) {
+      const thumbLeft = thumbnail.offsetLeft;
+      const thumbWidth = thumbnail.offsetWidth;
+      const containerWidth = navContainer.offsetWidth;
+      const scrollLeft = navContainer.scrollLeft;
+
+      // Check if thumbnail is out of view
+      if (thumbLeft < scrollLeft) {
+        // Scroll left to show the thumbnail
+        navContainer.scrollLeft = thumbLeft - 20; // 20px padding
+      } else if (thumbLeft + thumbWidth > scrollLeft + containerWidth) {
+        // Scroll right to show the thumbnail
+        navContainer.scrollLeft = thumbLeft + thumbWidth - containerWidth + 20; // 20px padding
+      }
+    }
   }
 
   // Auto-play functionality (optional)
@@ -5271,76 +5337,8 @@ document.addEventListener('variant:change', function(event) {
   }
 });
 
-  // Expose MediaGallery class globally for external access
+// Expose MediaGallery class globally for external access
 window.MediaGallery = MediaGallery;
-
-  setupPagination() {
-    const paginationContainer = this.gallery.querySelector('.swiper-pagination');
-    if (!paginationContainer) return;
-
-    // Clear existing bullets
-    paginationContainer.innerHTML = '';
-
-    // Create pagination bullets
-    for (let i = 0; i < this.totalSlides; i++) {
-      const bullet = document.createElement('span');
-      bullet.className = 'swiper-pagination-bullet';
-      bullet.addEventListener('click', () => this.goToSlide(i));
-      paginationContainer.appendChild(bullet);
-    }
-
-    this.paginationBullets = Array.from(paginationContainer.querySelectorAll('.swiper-pagination-bullet'));
-  }
-
-  updatePagination() {
-    if (!this.paginationBullets) return;
-
-    this.paginationBullets.forEach((bullet, index) => {
-      bullet.classList.toggle('swiper-pagination-bullet-active', index === this.currentIndex);
-    });
-  }
-
-  setupThumbnailScroll() {
-    if (!this.thumbnailContainer) return;
-
-    // Add scroll buttons if needed
-    const navContainer = this.gallery.querySelector('.sf-media-nav');
-    const containerWidth = navContainer.offsetWidth;
-    const contentWidth = this.thumbnailContainer.scrollWidth;
-
-    if (contentWidth > containerWidth) {
-      // Enable horizontal scrolling
-      navContainer.style.overflowX = 'auto';
-      navContainer.style.scrollBehavior = 'smooth';
-      
-      // Hide scrollbar but keep functionality
-      navContainer.classList.add('sf-no-scroll-bar');
-    }
-  }
-
-  scrollThumbnailIntoView(index) {
-    if (!this.thumbnails[index] || !this.thumbnailContainer) return;
-
-    const thumbnail = this.thumbnails[index];
-    const navContainer = this.gallery.querySelector('.sf-media-nav .nav-swiper-container');
-    
-    if (navContainer) {
-      const thumbLeft = thumbnail.offsetLeft;
-      const thumbWidth = thumbnail.offsetWidth;
-      const containerWidth = navContainer.offsetWidth;
-      const scrollLeft = navContainer.scrollLeft;
-
-      // Check if thumbnail is out of view
-      if (thumbLeft < scrollLeft) {
-        // Scroll left to show the thumbnail
-        navContainer.scrollLeft = thumbLeft - 20; // 20px padding
-      } else if (thumbLeft + thumbWidth > scrollLeft + containerWidth) {
-        // Scroll right to show the thumbnail
-        navContainer.scrollLeft = thumbLeft + thumbWidth - containerWidth + 20; // 20px padding
-      }
-    }
-  }
-
 </script>
 
 </html>
