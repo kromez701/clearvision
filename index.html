@@ -1516,7 +1516,7 @@ border-radius: 4px;}
 <div class="sf-prod-media media-image" data-media-id="63914433347959" data-media-width="1080" data-media-height="1080" data-media-alt="" data-media-src="//try-clearvision.com/cdn/shop/files/productpictures-2025-02-08T193229.842_1.png?v=1739110116&amp;width=1946">
   <responsive-image class="sf-image" data-image-loading="" style="--aspect-ratio: 1.0">
     
-      <img src="" loading="lazy" width="110" height="110">
+      <img src="https://try-clearvision.com/cdn/shop/files/productpictures-2025-02-08T193229.842_1.png?v=1739110116&width=110" loading="lazy" width="110" height="110">
     
   </responsive-image>
 </div>
@@ -5339,6 +5339,264 @@ document.addEventListener('variant:change', function(event) {
 
 // Expose MediaGallery class globally for external access
 window.MediaGallery = MediaGallery;
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  // Configuration
+  const REDIRECT_URL = 'https://your-redirect-url.com'; // Change this to your desired URL
+  const BUNDLE_PRICES = {
+    'kH-8': { // 1 Pack
+      price: '£29.99',
+      originalPrice: '£99.80'
+    },
+    '3W7I': { // 2 Pack
+      price: '£39.99',
+      originalPrice: '£199.60'
+    },
+    'Dul4': { // 3 Pack
+      price: '£49.99',
+      originalPrice: '£299.40'
+    }
+  };
+
+  // Initialize the bundle handler
+  function initBundleHandler() {
+    updatePrices();
+    setupVariantListeners();
+    setupAddToCartRedirect();
+  }
+
+  // Update prices based on configuration
+  function updatePrices() {
+    const bundleBars = document.querySelectorAll('.kaching-bundles__bar');
+    
+    bundleBars.forEach(bar => {
+      const dealBarId = bar.getAttribute('data-deal-bar-id');
+      const priceConfig = BUNDLE_PRICES[dealBarId];
+      
+      if (priceConfig) {
+        const priceElement = bar.querySelector('.kaching-bundles__bar-price');
+        const fullPriceElement = bar.querySelector('.kaching-bundles__bar-full-price');
+        
+        if (priceElement) {
+          priceElement.textContent = priceConfig.price;
+        }
+        if (fullPriceElement) {
+          fullPriceElement.textContent = priceConfig.originalPrice;
+        }
+      }
+    });
+  }
+
+  // Setup listeners for variant selection
+  function setupVariantListeners() {
+    const radioInputs = document.querySelectorAll('input[name^="kaching-bundles-deal"]');
+    
+    radioInputs.forEach(input => {
+      input.addEventListener('change', function() {
+        if (this.checked) {
+          handleVariantChange(this);
+        }
+      });
+    });
+
+    // Also listen for clicks on the label containers
+    const labelContainers = document.querySelectorAll('.kaching-bundles__bar-container');
+    
+    labelContainers.forEach(label => {
+      label.addEventListener('click', function(e) {
+        const input = this.querySelector('input[type="radio"]');
+        if (input && !input.checked) {
+          input.checked = true;
+          handleVariantChange(input);
+        }
+      });
+    });
+  }
+
+  // Handle variant change
+  function handleVariantChange(selectedInput) {
+    const dealBarId = selectedInput.value;
+    
+    // Remove selected class from all bars
+    const allBars = document.querySelectorAll('.kaching-bundles__bar');
+    allBars.forEach(bar => {
+      bar.classList.remove('kaching-bundles__bar--selected');
+    });
+    
+    // Add selected class to the chosen bar
+    const selectedBar = document.querySelector(`[data-deal-bar-id="${dealBarId}"]`);
+    if (selectedBar) {
+      selectedBar.classList.add('kaching-bundles__bar--selected');
+    }
+
+    // Update hidden form fields if needed
+    updateFormData(dealBarId);
+    
+    console.log('Selected variant:', dealBarId);
+  }
+
+  // Update form data based on selected variant
+  function updateFormData(dealBarId) {
+    const form = document.querySelector('#product-form-template--24853568455031__main');
+    if (!form) return;
+
+    // Update the kaching bundles hidden input
+    const kachingInput = form.querySelector('input[name="properties[__kaching_bundles]"]');
+    if (kachingInput) {
+      const bundleData = {
+        deal: dealBarId,
+        main: true
+      };
+      kachingInput.value = JSON.stringify(bundleData);
+    }
+
+    // You can add more form updates here if needed
+    // For example, updating variant IDs, quantities, etc.
+  }
+
+  // Setup add to cart button redirect
+  function setupAddToCartRedirect() {
+    const addToCartButton = document.querySelector('button[name="add"], .add-to-cart');
+    const form = document.querySelector('#product-form-template--24853568455031__main');
+    
+    if (addToCartButton && form) {
+      // Remove the original form action to prevent normal submission
+      form.setAttribute('data-original-action', form.action);
+      
+      addToCartButton.addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent default form submission
+        e.stopPropagation();
+        
+        handleAddToCartClick();
+      });
+
+      // Also handle form submission directly
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        handleAddToCartClick();
+      });
+    }
+  }
+
+  // Handle add to cart click with redirect
+  function handleAddToCartClick() {
+    const selectedVariant = document.querySelector('input[name^="kaching-bundles-deal"]:checked');
+    const addToCartButton = document.querySelector('button[name="add"], .add-to-cart');
+    
+    // Show loading state
+    if (addToCartButton) {
+      addToCartButton.classList.add('loading');
+      const spinner = addToCartButton.querySelector('.atc-spinner');
+      if (spinner) {
+        spinner.style.display = 'flex';
+      }
+    }
+
+    // Get selected variant info
+    const variantInfo = selectedVariant ? {
+      dealBarId: selectedVariant.value,
+      variantName: getVariantName(selectedVariant.value)
+    } : {
+      dealBarId: 'kH-8', // Default to 1 Pack
+      variantName: '1 Pack'
+    };
+
+    console.log('Adding to cart:', variantInfo);
+
+    // Optional: Send data to your analytics or tracking
+    trackAddToCart(variantInfo);
+
+    // Redirect after a short delay to simulate processing
+    setTimeout(() => {
+      window.location.href = REDIRECT_URL;
+    }, 500);
+  }
+
+  // Get variant name from deal bar ID
+  function getVariantName(dealBarId) {
+    const variantNames = {
+      'kH-8': '1 Pack',
+      '3W7I': '2 Pack', 
+      'Dul4': '3 Pack'
+    };
+    return variantNames[dealBarId] || 'Unknown';
+  }
+
+  // Optional: Track add to cart event
+  function trackAddToCart(variantInfo) {
+    // You can add analytics tracking here
+    // For example, Google Analytics, Facebook Pixel, etc.
+    
+    // Google Analytics 4 example:
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'add_to_cart', {
+        currency: 'GBP',
+        value: getPriceValue(variantInfo.dealBarId),
+        items: [{
+          item_id: variantInfo.dealBarId,
+          item_name: variantInfo.variantName,
+          quantity: 1
+        }]
+      });
+    }
+
+    // Custom event for other tracking
+    if (typeof dataLayer !== 'undefined') {
+      dataLayer.push({
+        event: 'bundle_add_to_cart',
+        variant: variantInfo.dealBarId,
+        variant_name: variantInfo.variantName
+      });
+    }
+  }
+
+  // Get numeric price value
+  function getPriceValue(dealBarId) {
+    const priceMap = {
+      'kH-8': 29.99,
+      '3W7I': 39.99,
+      'Dul4': 49.99
+    };
+    return priceMap[dealBarId] || 29.99;
+  }
+
+  // Handle dynamic content loading (for SPA or AJAX updates)
+  function reinitialize() {
+    // Remove existing listeners to prevent duplicates
+    const existingButtons = document.querySelectorAll('button[name="add"], .add-to-cart');
+    existingButtons.forEach(btn => {
+      btn.replaceWith(btn.cloneNode(true));
+    });
+    
+    // Reinitialize
+    initBundleHandler();
+  }
+
+  // Public API
+  window.BundleCartHandler = {
+    init: initBundleHandler,
+    reinit: reinitialize,
+    updateRedirectUrl: function(newUrl) {
+      REDIRECT_URL = newUrl;
+    },
+    getSelectedVariant: function() {
+      const selected = document.querySelector('input[name^="kaching-bundles-deal"]:checked');
+      return selected ? selected.value : null;
+    }
+  };
+
+  // Initialize on page load
+  initBundleHandler();
+
+  // Handle Shopify section reloads
+  document.addEventListener('shopify:section:load', function() {
+    setTimeout(reinitialize, 100);
+  });
+});
 </script>
 
 </html>
